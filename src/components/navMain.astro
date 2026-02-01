@@ -200,26 +200,22 @@ const {
         </div>
     )}
 
-    <!-- Center Text
-    <div class="nav-logo-text active">
-        {navCenterText ? (
-            <p>{navCenterText}</p>
-        ) : (
-            <p><a href="/">{SITE_NAME.siteNameFull}</a></p>
-        )}
-    </div>
-     -->
-
     <div class="nav-logo-text-section">
-        <div class="nav-logo-text-wrapper">
-            <div class="nav-logo-text"><p>{SITE_NAME.siteNameFirst}</p></div>
-            <div class="nav-logo-toggle-wrapper">
-                <div class="nav-logo-toggle-container">
-                    <div class="nav-logo-toggle-switch"></div>
-                </div>
+        {navCenterText ? (
+            <div class="nav-logo-text-wrapper">
+                <div class="nav-logo-text"><p>{navCenterText}</p></div>
             </div>
-            <div class="nav-logo-text"><p>{SITE_NAME.siteNameLast}</p></div>
-        </div>
+        ) : (
+            <div class="nav-logo-text-wrapper">
+                <div class="nav-logo-text"><p>{SITE_NAME.siteNameFirst}</p></div>
+                <div class="nav-logo-toggle-wrapper">
+                    <div class="nav-logo-toggle-container">
+                        <div class="nav-logo-toggle-switch"></div>
+                    </div>
+                </div>
+                <div class="nav-logo-text"><p>{SITE_NAME.siteNameLast}</p></div>
+            </div>
+        )}
     </div>
 
 </nav>

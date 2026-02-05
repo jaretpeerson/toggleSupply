@@ -1,8 +1,7 @@
 export const SITE_NAME = {
-  siteName: "Toggle",
+  siteNameFirst: "Toggle",
+  siteNameLast: "Supply",
   siteNameFull: "Toggle Supply",
-  siteNameLetters: ["T", "o", "g", "g", "l", "e"],
-  siteNameFullLetters: ["T", "o", "g", "g", "l", "e", " ", "S", "u", "p", "p", "l", "y"]
 } as const;
 
 // Navigation Links
@@ -11,10 +10,10 @@ export const NAV_LINKS = {
   inspiration: "/inspiration",
   buttons: "/buttons",
   github: "https://github.com/jaretpeerson",
-  githubShapeshift: "https://github.com/jaretpeerson/shapeshift",
+  githubShapeshift: "https://github.com/jaretpeerson/toggle",
   twitter: "",
   linkedin: "https://www.linkedin.com/in/jaret-peerson/",
   instagram: "",
   youtube: "",
-  email: "mailto:hello@shapeshift.supply?subject=Inquiry from Shapeshift Supply",
+  email: "mailto:hello@toggle.supply?subject=Inquiry from Toggle Supply",
 } as const;

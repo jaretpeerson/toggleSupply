@@ -1,8 +1,3 @@
-:root {
-  --toggle-switch-size: 0.9rem;
-  --toggle-switch-border-weight: 1.65px;
-}
-
 nav {
   position: fixed;
   top: 0;
@@ -147,58 +142,68 @@ nav p {
 }
 
 /* Center Logo */
-.nav-logo-text-section {
+.nav-logo {
   position: absolute;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  height: 55%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-150%);
+  opacity: 1;
+  visibility: visible;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.5, -0.35, 0.71, 1);
 }
 
-.nav-logo-text-wrapper {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+.nav-logo.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-logo a {
+  display: block;
+  height: 100%;
+  padding: 0;
+}
+
+.nav-logo svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .nav-logo-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-200%);
+  opacity: 0;
   word-spacing: var(--word-spacing);
-}
-
-.nav-logo-toggle-wrapper {
-  border: var(--toggle-switch-border-weight) solid var(--color-black-3);
-  border-radius: var(--rounded-corners-small);
-  margin-top: 1px;
-  padding: 5px;
-}
-
-.nav-logo-toggle-container {
-  width: calc(4 * var(--toggle-switch-size));
-}
-
-.nav-logo-toggle-switch {
-  width: calc(2 * var(--toggle-switch-size));
-  height: var(--toggle-switch-size);
-  border-radius: var(--rounded-corners-xxsmall);
-  border: var(--toggle-switch-border-weight) solid var(--color-black-7);
-  background: transparent;
-  transform: translateX(0);
   transition:
-    border var(--transition-time-med) ease,
-    background var(--transition-time-med) ease,
-    transform var(--transition-time-med) ease;
+    transform 0.4s cubic-bezier(0.5, -0.35, 0.71, 1),
+    opacity 0.3s ease;
 }
 
-/* Nav Logo - Active States */
-.nav-logo-text-section.active .nav-logo-toggle-switch {
-  border: var(--toggle-switch-border-weight) solid white;
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateX(100%);
+.nav-logo-text a {
+  letter-spacing: -0.3em;
+}
+
+.nav-logo-text a span:nth-child(4) {
+  transform: scaleX(-1);
+  display: inline-block;
+  transform-origin: center center;
+  letter-spacing: 0;
+  margin-right: -0.35em;
+}
+
+.nav-logo-text:has(a) {
+  cursor: pointer;
+}
+
+.nav-logo-text:not(:has(a)) {
+  pointer-events: none;
+}
+
+.nav-logo-text.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Buttons Icon */

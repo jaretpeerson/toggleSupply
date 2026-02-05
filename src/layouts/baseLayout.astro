@@ -4,15 +4,17 @@ import { SITE_NAME } from "@/config";
 import "../styles/global.css";
 import "../styles/globalPageTransition.css";
 import InfoModal from "@/components/infoModal.astro";
+import Analytics from '@vercel/analytics/astro'
 ---
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/assets/svg/shapeshift-favicon.svg" />
-    <title>{title ? `${SITE_NAME.siteName} | ${title}` : SITE_NAME.siteName}</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/svg/togglesupply-favicon.svg" />
+    <title>{title ? `${SITE_NAME.siteNameFull} | ${title}` : SITE_NAME.siteNameFull}</title>
   </head>
   <body>
+    <Analytics/>
 
     <InfoModal>
       <slot name="infoModal" />

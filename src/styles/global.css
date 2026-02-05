@@ -11,6 +11,8 @@
   --body-height-nav-mobile: calc(100dvh - var(--navMain-heightMobile));
 
   /* Rounded Corners */
+  --rounded-corners-xxsmall: 2px;
+  --rounded-corners-xsmall: 3.5px;
   --rounded-corners-small: 5px;
   --rounded-corners-med: 10px;
   --rounded-corners-large: 15px;

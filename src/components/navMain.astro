@@ -200,36 +200,22 @@ const {
         </div>
     )}
 
-    <!-- Center Text 
-    <div class="nav-logo-text active">
+    <div class="nav-logo-text-section">
         {navCenterText ? (
-            <p>{navCenterText}</p>
+            <div class="nav-logo-text-wrapper">
+                <div class="nav-logo-text"><p>{navCenterText}</p></div>
+            </div>
         ) : (
-            <p><a href="/">{SITE_NAME.siteNameFullSplit}</a></p>
-        )}
-    </div>
-    -->
-
-    <div class="nav-logo-text active">
-        {navCenterText ? (
-            <p>{navCenterText}</p>
-        ) : (
-            <p>
-                <a href="/">
-                    {SITE_NAME.siteNameFullLetters.map((letter) => (
-                        <span>{letter}</span>
-                    ))}
-                </a>
-            </p>
+            <div class="nav-logo-text-wrapper">
+                <div class="nav-logo-text"><p>{SITE_NAME.siteNameFirst}</p></div>
+                <div class="nav-logo-toggle-wrapper">
+                    <div class="nav-logo-toggle-container">
+                        <div class="nav-logo-toggle-switch"></div>
+                    </div>
+                </div>
+                <div class="nav-logo-text"><p>{SITE_NAME.siteNameLast}</p></div>
+            </div>
         )}
     </div>
 
-    <!-- Logo -->
-    <div class="nav-logo">
-        <a href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="32" viewBox="0 0 36 32" fill="none">
-            <path d="M19.9854 26.6973H22.2031L27.5137 32H22.8477L21.8125 30.9658H17.6855C15.5361 28.813 11.8082 25.105 11.7988 25.0957H9.90527L14.2031 29.3936H4.72266L7.32812 31.999H3.45117L0.0820312 28.6299L7.08105 21.6318L14.917 21.6289L19.9854 26.6973ZM26.2197 9.89746L25.8408 11.3105L27.9033 14.8848C27.1156 17.8184 25.7714 22.8887 25.7637 22.918L26.71 24.5576L28.2842 18.6885V18.6875L33.0234 26.8984L33.9775 23.3379L35.916 26.6943L34.6826 31.2969L25.1211 28.7344L21.2021 21.9492L23.0576 15.0264L21.9482 13.1064L23.8857 5.85547L26.2197 9.89746ZM22.2559 9.56055L18.3398 16.3486L11.416 18.2041L10.3076 20.124L3.05859 22.0713L5.39258 18.0293L6.80566 17.6504L8.86914 14.0762C11.8113 13.2895 16.8955 11.9131 16.8955 11.9131L17.8418 10.2734L11.9727 11.8457L16.7129 3.63672L13.1533 4.58984L15.0908 1.2334L19.6934 0L22.2559 9.56055Z" fill="white"/>
-            </svg>
-        </a>
-    </div>
 </nav>

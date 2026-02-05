@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Header - Toggle Supply</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .header-container {
+            width: 1128px;
+            height: 191px;
+            background: #0b0b0b;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.6;
+        }
+        
+        .pattern svg {
+            position: absolute;
+        }
+        
+        .download-btn {
+            padding: 12px 32px;
+            background: #0b0b0b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .download-btn:hover {
+            background: #1c1c1c;
+        }
+        
+        .download-btn:active {
+            background: #0a0a0a;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container" id="headerContainer">
+        <div class="pattern" id="pattern"></div>
+    </div>
+    
+    <button class="download-btn" onclick="downloadHeader()">Download as PNG (3384x573)</button>
+
+    <script>
+        // ============================================
+        // ADJUST THESE VALUES TO CUSTOMIZE THE PATTERN
+        // ============================================
+        
+        // SVG_SCALE: Controls the size of each toggle icon
+        // - Default: 0.5 (which makes it 33px wide)
+        // - Larger number = bigger icons (try 0.7, 1.0, etc.)
+        // - Smaller number = smaller icons (try 0.3, 0.4, etc.)
+        const SVG_SCALE = 0.25;
+        
+        // SPACING: Gap between each icon in pixels
+        // - Default: 8
+        // - Larger number = more space between icons
+        // - Smaller number = icons closer together
+        // - Use 0 for no spacing
+        const SPACING = 3;
+        
+        // FADE_START: Where the fade to background begins (0 to 1)
+        // - 0 = fade starts at left edge
+        // - 0.5 = fade starts halfway across
+        // - 1 = no fade (icons stay visible all the way)
+        const FADE_START = 0.3;
+        
+        // FADE_END: Where the fade completes (0 to 1)
+        // - Must be greater than FADE_START
+        // - 0.75 = fully faded by 75% across
+        // - 1 = fade completes at right edge
+        const FADE_END = 0.7;
+        
+        // ============================================
+        // Pattern generation code below
+        // ============================================
+        
+        const pattern = document.getElementById('pattern');
+        const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="66" height="57" viewBox="0 0 66 57" fill="none">
+            <path d="M61.1514 31.1016C63.7918 31.1016 65.9316 33.2414 65.9316 35.8818V51.4736C65.9316 54.114 63.7918 56.2538 61.1514 56.2539H4.78027C2.1398 56.2539 6.00153e-05 54.1141 0 51.4736V35.8818C5.01733e-06 33.2413 2.13977 31.1016 4.78027 31.1016H61.1514ZM34.5479 37.0459C33.6732 37.0461 32.965 37.7543 32.9648 38.6289V48.7217C32.9648 49.5965 33.6731 50.3055 34.5479 50.3057H58.4014C59.2763 50.3057 59.9854 49.5966 59.9854 48.7217V38.6289C59.9852 37.7542 59.2761 37.0459 58.4014 37.0459H34.5479ZM61.1514 0C63.7918 7.90014e-05 65.9316 2.13981 65.9316 4.78027V20.3721C65.9316 23.0125 63.7918 25.1523 61.1514 25.1523H4.78027C2.13981 25.1523 7.95533e-05 23.0125 0 20.3721V4.78027C0 2.13976 2.13976 0 4.78027 0H61.1514ZM7.5293 5.94629C6.65459 5.94638 5.94647 6.65461 5.94629 7.5293V17.6221C5.94629 18.4969 6.65449 19.206 7.5293 19.2061H31.3828C32.2577 19.2061 32.9668 18.497 32.9668 17.6221V7.5293C32.9666 6.65456 32.2576 5.94629 31.3828 5.94629H7.5293Z" fill="FILL_COLOR"/>
+        </svg>`;
+        
+        const colors = ['#111111', '#222222', '#333333', '#444444', '#555555'];
+        
+        // Calculate dimensions based on scale
+        const svgWidth = 66 * SVG_SCALE;
+        const svgHeight = 57 * SVG_SCALE;
+        const spacing = SPACING;
+        
+        const cols = Math.ceil(1128 / (svgWidth + spacing)) + 2;
+        const rows = Math.ceil(191 / (svgHeight + spacing)) + 2;
+        
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const x = col * (svgWidth + spacing) - spacing;
+                const y = row * (svgHeight + spacing) - spacing;
+                
+                // Calculate fade based on position (left to right)
+                // Add randomization to make it more organic
+                const fadeProgress = col / cols;
+                const randomOffset = (Math.random() - 0.5) * 0.3; // Random variation ±15%
+                const adjustedProgress = Math.max(0, Math.min(1, fadeProgress + randomOffset));
+                
+                // Interpolate from the grayscale colors to #0b0b0b
+                let color;
+                if (adjustedProgress < FADE_START) {
+                    // Use grayscale colors before fade starts
+                    color = colors[Math.floor(Math.random() * colors.length)];
+                } else if (adjustedProgress >= FADE_END) {
+                    // Fully background color after fade completes
+                    color = '#0b0b0b';
+                } else {
+                    // Fade between FADE_START and FADE_END
+                    const fadeAmount = (adjustedProgress - FADE_START) / (FADE_END - FADE_START);
+                    const baseColor = colors[Math.floor(Math.random() * colors.length)];
+                    const baseValue = parseInt(baseColor.slice(1), 16);
+                    const targetValue = 0x0b0b0b;
+                    
+                    // Interpolate RGB values
+                    const baseR = (baseValue >> 16) & 0xff;
+                    const baseG = (baseValue >> 8) & 0xff;
+                    const baseB = baseValue & 0xff;
+                    
+                    const targetR = (targetValue >> 16) & 0xff;
+                    const targetG = (targetValue >> 8) & 0xff;
+                    const targetB = targetValue & 0xff;
+                    
+                    const r = Math.round(baseR + (targetR - baseR) * fadeAmount);
+                    const g = Math.round(baseG + (targetG - baseG) * fadeAmount);
+                    const b = Math.round(baseB + (targetB - baseB) * fadeAmount);
+                    
+                    color = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+                }
+                
+                const svgElement = document.createElement('div');
+                svgElement.innerHTML = svgTemplate.replace('FILL_COLOR', color);
+                const svg = svgElement.firstElementChild;
+                svg.style.left = `${x}px`;
+                svg.style.top = `${y}px`;
+                svg.style.width = `${svgWidth}px`;
+                svg.style.height = `${svgHeight}px`;
+                
+                pattern.appendChild(svg);
+            }
+        }
+        
+        // ============================================
+        // Download function - exports at 3x resolution
+        // ============================================
+        
+        function downloadHeader() {
+            const scale = 3; // Triple resolution
+            const canvas = document.createElement('canvas');
+            canvas.width = 1128 * scale;
+            canvas.height = 191 * scale;
+            const ctx = canvas.getContext('2d');
+            
+            // Fill background
+            ctx.fillStyle = '#0b0b0b';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw each SVG to canvas at higher resolution
+            const svgs = pattern.querySelectorAll('svg');
+            let loadedCount = 0;
+            
+            const promises = Array.from(svgs).map(svg => {
+                return new Promise((resolve) => {
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const img = new Image();
+                    
+                    img.onload = () => {
+                        const x = parseFloat(svg.style.left) * scale;
+                        const y = parseFloat(svg.style.top) * scale;
+                        const width = parseFloat(svg.style.width) * scale;
+                        const height = parseFloat(svg.style.height) * scale;
+                        
+                        // Apply opacity
+                        ctx.globalAlpha = 0.6;
+                        ctx.drawImage(img, x, y, width, height);
+                        ctx.globalAlpha = 1.0;
+                        
+                        resolve();
+                    };
+                    
+                    img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+                });
+            });
+            
+            Promise.all(promises).then(() => {
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'toggle-supply-linkedin-header-3384x573.png';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }, 'image/png');
+            });
+        }
+    </script>
+</body>
+</html>

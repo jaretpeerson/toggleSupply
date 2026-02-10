@@ -279,8 +279,7 @@ nav p {
 
 /* Tablet */
 @media screen and (max-width: 1000px) {
-  .nav-logo-text.active,
-  .nav-logo {
+  .nav-logo-text-section {
     display: none;
   }
 }

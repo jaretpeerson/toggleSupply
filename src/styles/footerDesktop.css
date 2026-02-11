@@ -39,6 +39,11 @@
   word-spacing: var(--word-spacing);
   color: white;
 
+  /* Performance */
+  will-change: transform, bottom, height;
+  backface-visibility: hidden;
+  transform: translateX(-50%) translateY(0) translateZ(0);
+
   /* Animations */
   transition:
     bottom var(--transition-time-med) var(--transition-ease-bounce),
@@ -63,12 +68,13 @@
   white-space: nowrap;
   cursor: pointer;
   transition: opacity 0.3s ease;
-  padding: 0 12px;
+  padding: 0 16px;
+  min-width: fit-content;
 }
 
 .footer-desktop-icon {
-  height: 13px;
-  width: 13px;
+  height: 15px;
+  width: 15px;
   display: inline-block;
   flex-shrink: 0;
 }
@@ -85,6 +91,7 @@
   pointer-events: auto;
   transition:
     opacity var(--transition-time-med) var(--transition-ease-bounce),
+    margin-left var(--transition-time-med) var(--transition-ease-bounce),
     max-width var(--transition-time-med) var(--transition-ease-bounce);
 }
 
@@ -92,7 +99,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  height: 25px;
+  height: 22px;
   opacity: 1;
   transform: translateX(-50%) translateY(-50%) scale(1);
   transform-origin: 50% 50%;
@@ -128,7 +135,7 @@
   left: 50%;
   transform: translateX(-50%) translateY(0);
   min-width: 0;
-  height: var(--footer-float-height);
+  height: 45px;
   padding: 0 calc(0.2 * var(--footer-float-height));
 
   /* Flex */
@@ -146,7 +153,7 @@
 
   /* Font */
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing);
   word-spacing: var(--word-spacing);
@@ -155,6 +162,17 @@
 
 .footer-desktop.float .footer-desktop-item {
   height: 100%;
+}
+
+.footer-desktop.float .footer-desktop-text {
+  opacity: 0;
+  max-width: 0;
+  margin-left: -6px;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-time-med) var(--transition-ease-bounce),
+    margin-left var(--transition-time-med) var(--transition-ease-bounce),
+    max-width var(--transition-time-med) var(--transition-ease-bounce);
 }
 
 .footer-desktop.float .footer-desktop-logo {
@@ -172,13 +190,19 @@
 }
 
 @media (hover: hover) {
-  .footer-desktop-item:hover {
+  .footer-desktop-item:hover .footer-desktop-text {
     opacity: 1;
+    max-width: 300px;
+    margin-left: 0;
+    pointer-events: auto;
   }
 
-  .footer-desktop-item:has(~ .footer-desktop-item:hover),
-  .footer-desktop-item:hover ~ .footer-desktop-item {
+  .footer-desktop:not(.float):hover .footer-desktop-item {
     opacity: 0.2;
+  }
+
+  .footer-desktop:not(.float):hover .footer-desktop-item:hover {
+    opacity: 1;
   }
 }
 

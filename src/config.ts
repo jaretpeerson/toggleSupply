@@ -10,7 +10,7 @@ export const NAV_LINKS = {
   inspiration: "/inspiration",
   buttons: "/buttons",
   github: "https://github.com/jaretpeerson",
-  githubToggleRepo: "https://github.com/jaretpeerson/toggleSupply",
+  githubToggleSupply: "https://github.com/jaretpeerson/toggleSupply",
   twitter: "https://x.com/togglesupply",
   linkedin: "https://www.linkedin.com/in/jaret-peerson/",
   linkedinCompany: "https://www.linkedin.com/company/togglesupply",

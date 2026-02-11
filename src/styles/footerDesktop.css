@@ -72,6 +72,12 @@
   min-width: fit-content;
 }
 
+.footer-desktop-item-separator {
+  height: 100%;
+  width: 1px;
+  background: var(--color-main-border);
+}
+
 .footer-desktop-icon {
   height: 15px;
   width: 15px;
@@ -136,7 +142,7 @@
   transform: translateX(-50%) translateY(0);
   min-width: 0;
   height: 45px;
-  padding: 0 calc(0.2 * var(--footer-float-height));
+  padding: 0 1px;
 
   /* Flex */
   display: flex;
@@ -172,7 +178,14 @@
   transition:
     opacity var(--transition-time-med) var(--transition-ease-bounce),
     margin-left var(--transition-time-med) var(--transition-ease-bounce),
+    padding-left var(--transition-time-med) var(--transition-ease-bounce),
     max-width var(--transition-time-med) var(--transition-ease-bounce);
+}
+
+.footer-desktop.float
+  .footer-desktop-item.meet-creator:hover
+  .footer-desktop-text {
+  padding-left: 2px;
 }
 
 .footer-desktop.float .footer-desktop-logo {

@@ -72,6 +72,13 @@
   min-width: fit-content;
 }
 
+.footer-desktop-item.inactive {
+  display: none;
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .footer-desktop-item-separator {
   height: 100%;
   width: 1px;

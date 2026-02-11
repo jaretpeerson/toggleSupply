@@ -4,7 +4,7 @@ const footerLineCover = document.querySelector(".footer-desktop-line-cover")
 const footerToTop = document.getElementById("footer-to-top")
 const footerShareProject = document.getElementById("footer-share-project")
 const footerShareProjectText = document.getElementById(
-  "footer-share-project-text"
+  "footer-share-project-text",
 )
 const scrollThreshold = 60
 
@@ -56,7 +56,7 @@ if (footerShareProject) {
 }
 
 if (footerShareProjectText) {
-  footerShareProjectText.textContent = "Share Project"
+  footerShareProjectText.textContent = "Share Site"
 }
 
 updateFooterState()

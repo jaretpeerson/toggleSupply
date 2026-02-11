@@ -64,7 +64,7 @@ function showSocialMediaOptions() {
   const socialMediaPlatforms = [
     {
       name: "LinkedIn",
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
+      url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent("Toggle Supply")}&summary=${encodeURIComponent("A CSS-first component library. From state to style.")}`,
     },
     {
       name: "X.com",

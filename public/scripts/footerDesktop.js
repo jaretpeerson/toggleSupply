@@ -142,7 +142,12 @@ function showSocialMediaOptions() {
   const closeButton = document.createElement("div")
   closeButton.className = "footer-desktop-item close-social"
   closeButton.innerHTML = `
-    <div class="footer-desktop-text">Return</div>
+    <div class="footer-desktop-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.25"/>
+        <path d="M5 5L11 11M11 5L5 11" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+      </svg>
+    </div>
   `
 
   closeButton.addEventListener("click", (e) => {

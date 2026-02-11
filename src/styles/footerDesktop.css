@@ -85,6 +85,11 @@
   pointer-events: auto !important;
 }
 
+.footer-desktop-item.close-social .footer-desktop-icon {
+  height: 18px;
+  width: 18px;
+}
+
 .footer-desktop-item.close-social {
   animation: fadeInScale 0.3s var(--transition-ease-bounce) forwards;
   opacity: 0;

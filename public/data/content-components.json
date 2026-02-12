@@ -6,7 +6,8 @@
         "image": "/assets/thumbnails/thumbnail-2.webp",
         "href": "/components/hoverRevealMenu",
         "date": "2025-09-19",
-        "tags": ["hover", "expand", "menu", "navigation", "reveal"]
+        "tags": ["hover", "expand", "menu", "navigation", "reveal"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -15,7 +16,8 @@
         "image": "/assets/thumbnails/thumbnail-1.webp",
         "href": "/components/marqueeScrollBased",
         "date": "2025-09-14",
-        "tags": ["marquee", "scroll", "infinite", "loop", "horizontal", "text", "scrolling", "motion", "continuous"]
+        "tags": ["marquee", "scroll", "infinite", "loop", "horizontal", "text", "scrolling", "motion", "continuous"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -24,7 +26,8 @@
         "image": "/assets/thumbnails/thumbnail-3.webp",
         "href": "/components/expandCollapseAccordion",
         "date": "2025-07-28",
-        "tags": ["accordion", "list", "expand", "collapse", "toggle", "reveal", "structure"]
+        "tags": ["accordion", "list", "expand", "collapse", "toggle", "reveal", "structure"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -33,7 +36,8 @@
         "image": "/assets/thumbnails/thumbnail-4.webp",
         "href": "/components/pixelatedPageTransition",
         "date": "2025-09-12",
-        "tags": ["page", "transition", "pixelated", "box", "reveal", "screen"]
+        "tags": ["page", "transition", "pixelated", "box", "reveal", "screen"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -42,7 +46,8 @@
         "image": "/assets/thumbnails/thumbnail-6.webp",
         "href": "/components/boxSectionTransition",
         "date": "2025-08-27",
-        "tags": ["scroll", "section", "transition", "boxes", "reveal", "scroll-based"]
+        "tags": ["scroll", "section", "transition", "boxes", "reveal", "scroll-based"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -51,7 +56,8 @@
         "image": "/assets/thumbnails/thumbnail-8.webp",
         "href": "/components/horizontalCarouselManual",
         "date": "2025-10-25",
-        "tags": ["carousel", "image", "images", "horizontal", "slideshow", "gallery", "apple", "manual", "click"]
+        "tags": ["carousel", "image", "images", "horizontal", "slideshow", "gallery", "apple", "manual", "click"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -60,7 +66,8 @@
         "image": "/assets/thumbnails/thumbnail-9.webp",
         "href": "/components/staggeredGridClipMask",
         "date": "2025-10-25",
-        "tags": ["gallery", "image", "images", "grid", "masonry", "clip", "path", "mask"]
+        "tags": ["gallery", "image", "images", "grid", "masonry", "clip", "path", "mask"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -69,7 +76,8 @@
         "image": "/assets/thumbnails/thumbnail-10.webp",
         "href": "/components/lightboxWithControls",
         "date": "2025-10-29",
-        "tags": ["gallery", "image", "images", "grid", "lightbox", "slideshow", "next", "previous"]
+        "tags": ["gallery", "image", "images", "grid", "lightbox", "slideshow", "next", "previous"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -78,7 +86,8 @@
         "image": "/assets/thumbnails/thumbnail-11.webp",
         "href": "/components/formValidation",
         "date": "2025-07-29",
-        "tags": ["gallery", "image", "images", "grid", "lightbox", "slideshow", "next", "previous"]
+        "tags": ["gallery", "image", "images", "grid", "lightbox", "slideshow", "next", "previous"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -87,7 +96,8 @@
         "image": "/assets/thumbnails/thumbnail-12.webp",
         "href": "/components/timedContentSection",
         "date": "2025-10-31",
-        "tags": ["timed", "looping", "content", "image", "text", "auto", "cycle", "rotation", "sequential", "slideshow", "highlight", "interval", "transition", "switch", "animated"]
+        "tags": ["timed", "looping", "content", "image", "text", "auto", "cycle", "rotation", "sequential", "slideshow", "highlight", "interval", "transition", "switch", "animated"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -96,7 +106,8 @@
         "image": "/assets/thumbnails/thumbnail-13.webp",
         "href": "/components/expandImageHover",
         "date": "2025-11-9",
-        "tags": ["gallery", "hover", "image", "expand", "flexbox", "interactive", "vertical", "transition", "animation", "responsive", "reveal", "stretch"]
+        "tags": ["gallery", "hover", "image", "expand", "flexbox", "interactive", "vertical", "transition", "animation", "responsive", "reveal", "stretch"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -105,7 +116,8 @@
         "image": "/assets/thumbnails/thumbnail-14.webp",
         "href": "/components/circleMaskReveal",
         "date": "2025-11-12",
-        "tags": ["gallery", "hover", "image", "expand", "flexbox", "interactive", "vertical", "transition", "animation", "responsive", "reveal", "circle"]
+        "tags": ["gallery", "hover", "image", "expand", "flexbox", "interactive", "vertical", "transition", "animation", "responsive", "reveal", "circle"],
+        "showOnMobile": true
     },
     {
         "kind": "component",
@@ -114,7 +126,8 @@
         "image": "/assets/thumbnails/thumbnail-15.webp",
         "href": "/components/scrollSnap",
         "date": "2025-11-22",
-        "tags": ["scroll", "snap", "sections", "navigation", "scroll-behavior", "interaction", "vertical", "smooth", "animation"]
+        "tags": ["scroll", "snap", "sections", "navigation", "scroll-behavior", "interaction", "vertical", "smooth", "animation"],
+        "showOnMobile": false
     },
     {
         "kind": "component",
@@ -123,6 +136,7 @@
         "image": "/assets/thumbnails/thumbnail-16.webp",
         "href": "/components/expandableDirectory",
         "date": "2025-12-2",
-        "tags": ["directory", "expand", "team", "avatars", "dropdown", "reveal", "interaction", "ui", "profile"]
-}
+        "tags": ["directory", "expand", "team", "avatars", "dropdown", "reveal", "interaction", "ui", "profile"],
+        "showOnMobile": true
+    }
 ]

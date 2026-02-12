@@ -110,6 +110,7 @@
   justify-content: center;
   position: relative;
   margin-top: 1px;
+  transition: border var(--transition-time-med) ease;
 }
 
 .footer-desktop-socials-close-line {
@@ -117,6 +118,7 @@
   height: 1.4px;
   background: var(--color-black-7);
   position: absolute;
+  transition: background var(--transition-time-med) ease;
 }
 
 .footer-desktop-socials-close-line:first-child {
@@ -252,6 +254,14 @@
 
   .footer-desktop:not(.float):hover .footer-desktop-item:hover {
     opacity: 1;
+  }
+
+  .footer-desktop-item.close:hover .footer-desktop-socials-close {
+    border: 1.4px solid white;
+  }
+
+  .footer-desktop-item.close:hover .footer-desktop-socials-close-line {
+    background: white;
   }
 }
 

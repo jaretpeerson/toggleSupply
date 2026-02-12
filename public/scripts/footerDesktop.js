@@ -1,11 +1,9 @@
-// Footer visibility and float state management
-const footer = document.querySelector(".footer-desktop")
+const footerMain = document.querySelector(".footer-desktop.main")
+const footerSocials = document.querySelector(".footer-desktop.socials")
 const footerLineCover = document.querySelector(".footer-desktop-line-cover")
 const footerToTop = document.getElementById("footer-to-top")
 const footerShareProject = document.getElementById("footer-share-project")
-const footerShareProjectText = document.getElementById(
-  "footer-share-project-text",
-)
+const footerClose = document.querySelector(".footer-desktop-item.close")
 const scrollThreshold = 60
 
 function updateFooterState() {
@@ -15,48 +13,40 @@ function updateFooterState() {
   const distanceFromBottom = documentHeight - (scrollPosition + windowHeight)
 
   if (scrollPosition > scrollThreshold) {
-    footer.classList.remove("invisible")
+    footerMain.classList.remove("invisible")
   } else {
-    footer.classList.add("invisible")
+    footerMain.classList.add("invisible")
   }
 
   if (distanceFromBottom < 80) {
-    footer.classList.remove("float")
+    footerMain.classList.remove("float")
+    footerSocials.classList.remove("float")
     footerLineCover.classList.remove("invisible")
   } else {
-    footer.classList.add("float")
+    footerMain.classList.add("float")
+    footerSocials.classList.add("float")
     footerLineCover.classList.add("invisible")
   }
 }
 
 function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  })
+  window.scrollTo({ top: 0, behavior: "smooth" })
 }
 
-function copyPageUrl() {
-  const currentUrl = window.location.href
-  navigator.clipboard.writeText(currentUrl)
+function openSocialPanel() {
+  footerSocials.classList.remove("inactive")
+  footerMain.classList.add("inactive")
+}
 
-  if (footerShareProjectText) {
-    footerShareProjectText.textContent = "Link Copied"
-  }
+function closeSocialPanel() {
+  footerSocials.classList.add("inactive")
+  footerMain.classList.remove("inactive")
 }
 
 window.addEventListener("scroll", updateFooterState)
 
-if (footerToTop) {
-  footerToTop.addEventListener("click", scrollToTop)
-}
-
-if (footerShareProject) {
-  footerShareProject.addEventListener("click", copyPageUrl)
-}
-
-if (footerShareProjectText) {
-  footerShareProjectText.textContent = "Share Site"
-}
+footerToTop?.addEventListener("click", scrollToTop)
+footerShareProject?.addEventListener("click", openSocialPanel)
+footerClose?.addEventListener("click", closeSocialPanel)
 
 updateFooterState()

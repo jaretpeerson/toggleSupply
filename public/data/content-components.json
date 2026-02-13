@@ -122,7 +122,7 @@
     {
         "kind": "component",
         "title": "Scroll Snap",
-        "category": "Scrolling",
+        "category": "Scroll",
         "image": "/assets/thumbnails/thumbnail-15.webp",
         "href": "/components/scrollSnap",
         "date": "2025-11-22",

@@ -19,7 +19,7 @@ async function loadContent() {
   }, {})
 
   categoriesList.sort(
-    (a, b) => categoriesCount[b] - categoriesCount[a] || a.localeCompare(b)
+    (a, b) => categoriesCount[b] - categoriesCount[a] || a.localeCompare(b),
   )
 
   const categories = ["All", ...categoriesList]
@@ -53,7 +53,7 @@ async function loadContent() {
       renderContent(content, grid)
     } else {
       const filtered = content.filter(
-        (e) => e.category.toUpperCase() === category
+        (e) => e.category.toUpperCase() === category,
       )
       renderContent(filtered, grid)
     }
@@ -172,7 +172,7 @@ function addNewCards(cards, grid, oneMonthAgo, instant = false) {
         () => {
           card.style.transitionDelay = ""
         },
-        { once: true }
+        { once: true },
       )
     }
   })
@@ -204,7 +204,7 @@ window.addEventListener("scroll", () => {
 
     const nextBatch = currentCards.slice(
       currentIndex,
-      currentIndex + itemsPerLoad
+      currentIndex + itemsPerLoad,
     )
 
     addNewCards(nextBatch, grid, oneMonthAgo)
@@ -216,7 +216,7 @@ window.addEventListener("scroll", () => {
 
 // Categories Track: Scroll pre-defined distance on arrow click
 const arrowRight = document.querySelector(
-  ".filter-track-categories-arrow-right"
+  ".filter-track-categories-arrow-right",
 )
 const arrowLeft = document.querySelector(".filter-track-categories-arrow-left")
 const fadeRight = document.querySelector(".filter-track-categories-fade-right")
@@ -348,13 +348,13 @@ function sortExpandStagger() {
       if (finished === sortButtons.length) {
         sortExpandedMenu.classList.remove("hide", "show")
         sortButtons.forEach((btn) =>
-          btn.removeEventListener("transitionend", onEnd)
+          btn.removeEventListener("transitionend", onEnd),
         )
       }
     }
 
     sortButtons.forEach((btn) =>
-      btn.addEventListener("transitionend", onEnd, { once: false })
+      btn.addEventListener("transitionend", onEnd, { once: false }),
     )
   })
 }
@@ -374,7 +374,7 @@ sortButton.addEventListener("click", () => {
 
       // Respect user's category selection
       const activeCategory = document.querySelector(
-        ".categories-btn.active"
+        ".categories-btn.active",
       ).textContent
       let filtered
 
@@ -382,7 +382,7 @@ sortButton.addEventListener("click", () => {
         filtered = content
       } else {
         filtered = content.filter(
-          (e) => e.category.toUpperCase() === activeCategory
+          (e) => e.category.toUpperCase() === activeCategory,
         )
       }
 
@@ -431,7 +431,7 @@ sortButtons.forEach((btn) => {
 
     // Respect user's category selection
     const activeCategory = document.querySelector(
-      ".categories-btn.active"
+      ".categories-btn.active",
     ).textContent
     let filtered
 
@@ -439,7 +439,7 @@ sortButtons.forEach((btn) => {
       filtered = content
     } else {
       filtered = content.filter(
-        (e) => e.category.toUpperCase() === activeCategory
+        (e) => e.category.toUpperCase() === activeCategory,
       )
     }
 
@@ -498,13 +498,86 @@ function hideCard(card) {
         card.style.display = "none"
       }
     },
-    { once: true }
+    { once: true },
   )
 }
 
-// Observer to add "active" class to Filter Track on scroll
+// Card Counter Widget Observer
+let cardsInViewport = new Set()
+const gridCounterWidgetText = document.querySelector(
+  ".grid-items-counter-widget",
+)
+
+const cardCounterObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      const card = entry.target
+
+      // Check if card is hidden by search
+      if (card.style.display === "none") return
+
+      const rect = card.getBoundingClientRect()
+
+      if (entry.isIntersecting) {
+        // If card is entering viewport, add it to count
+        cardsInViewport.add(card)
+      } else if (rect.top > window.innerHeight) {
+        // If card is below viewport, remove it from count
+        cardsInViewport.delete(card)
+      }
+    })
+
+    updateGridCounterDisplay()
+  },
+  {
+    threshold: 0,
+    rootMargin: "0px 0px 0px 0px",
+  },
+)
+
+function updateGridCounterDisplay() {
+  const visibleInViewportCount = cardsInViewport.size
+  const totalCount = currentCards.length
+
+  const gridCounterWidget = document.querySelector(".grid-items-counter-widget")
+
+  if (gridCounterWidget) {
+    // Remove existing count paragraph if it exists
+    const existingCount = gridCounterWidget.querySelector(".counter-display")
+    if (existingCount) {
+      existingCount.remove()
+    }
+
+    // Create new paragraph with count
+    const countParagraph = document.createElement("p")
+    countParagraph.className = "counter-display"
+    countParagraph.textContent = `${visibleInViewportCount} / ${totalCount}`
+
+    // Insert at the beginning
+    gridCounterWidget.insertBefore(countParagraph, gridCounterWidget.firstChild)
+  }
+}
+
+function updateGridCounter() {
+  // Re-observe all visible cards
+  const allCards = grid.querySelectorAll(".content-card")
+
+  allCards.forEach((card) => {
+    cardCounterObserver.unobserve(card)
+    if (card.style.display !== "none") {
+      cardCounterObserver.observe(card)
+    }
+  })
+
+  updateGridCounterDisplay()
+}
+
+// Observer to add "active" classes to Filter Track and Card Counter Widget
 const filterTrack = document.querySelector(".filter-track")
 const gridContainer = document.querySelector(".content-grid-container")
+const gridCounterWidget = document.querySelector(
+  ".grid-items-counter-widget-container",
+)
 
 const stickyObserver = new IntersectionObserver(
   ([entry]) => {
@@ -517,11 +590,18 @@ const stickyObserver = new IntersectionObserver(
     } else if (containerTop > 60) {
       filterTrack.classList.remove("active")
     }
+
+    // Add active class to grid counter widget when filter-track reaches 200px from top
+    if (filterTop <= 200 && entry.isIntersecting) {
+      gridCounterWidget.classList.add("active")
+    } else if (containerTop > 200) {
+      gridCounterWidget.classList.remove("active")
+    }
   },
   {
     threshold: Array.from({ length: 100 }, (_, index) => index / 100),
     rootMargin: "0px",
-  }
+  },
 )
 
 stickyObserver.observe(gridContainer)

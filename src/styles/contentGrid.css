@@ -116,6 +116,7 @@ body.dragging-global * {
 /* Categories - Arrows */
 .filter-track-categories-arrow-right,
 .filter-track-categories-arrow-left {
+  all: unset;
   position: absolute;
   top: 50%;
   height: 15px;

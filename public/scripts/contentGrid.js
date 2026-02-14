@@ -37,7 +37,6 @@ async function loadContent() {
   })
 
   renderContent(content, grid)
-  updateGridCounter()
 
   // Filter grid cards on category selection
   categoriesTrack.addEventListener("click", (e) => {
@@ -58,7 +57,6 @@ async function loadContent() {
       )
       renderContent(filtered, grid)
     }
-    updateGridCounter()
   })
 }
 
@@ -92,7 +90,6 @@ function renderContent(cards, grid) {
       grid.style.opacity = "1"
       isRendering = false
       currentIndex = firstBatch.length
-      updateGridCounter()
     }, 300)
   } else {
     grid.innerHTML = ""
@@ -103,7 +100,6 @@ function renderContent(cards, grid) {
     isRendering = false
     firstRender = false
     currentIndex = firstBatch.length
-    updateGridCounter()
   }
 }
 
@@ -215,7 +211,6 @@ window.addEventListener("scroll", () => {
     currentIndex += nextBatch.length
 
     isRendering = false
-    updateGridCounter()
   }
 })
 
@@ -507,82 +502,9 @@ function hideCard(card) {
   )
 }
 
-// Card Counter Widget Observer
-let cardsInViewport = new Set()
-const gridCounterWidgetText = document.querySelector(
-  ".grid-items-counter-widget"
-)
-
-const cardCounterObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      const card = entry.target
-
-      // Check if card is hidden by search
-      if (card.style.display === "none") return
-
-      const rect = card.getBoundingClientRect()
-
-      if (entry.isIntersecting) {
-        // If card is entering viewport, add it to count
-        cardsInViewport.add(card)
-      } else if (rect.top > window.innerHeight) {
-        // If card is below viewport, remove it from count
-        cardsInViewport.delete(card)
-      }
-    })
-
-    updateGridCounterDisplay()
-  },
-  {
-    threshold: 0,
-    rootMargin: "0px 0px 0px 0px",
-  }
-)
-
-function updateGridCounterDisplay() {
-  const visibleInViewportCount = cardsInViewport.size
-  const totalCount = currentCards.length
-
-  const gridCounterWidget = document.querySelector(".grid-items-counter-widget")
-
-  if (gridCounterWidget) {
-    // Remove existing count paragraph if it exists
-    const existingCount = gridCounterWidget.querySelector(".counter-display")
-    if (existingCount) {
-      existingCount.remove()
-    }
-
-    // Create new paragraph with count
-    const countParagraph = document.createElement("p")
-    countParagraph.className = "counter-display"
-    countParagraph.textContent = `${visibleInViewportCount} / ${totalCount}`
-
-    // Insert at the beginning
-    gridCounterWidget.insertBefore(countParagraph, gridCounterWidget.firstChild)
-  }
-}
-
-function updateGridCounter() {
-  // Re-observe all visible cards
-  const allCards = grid.querySelectorAll(".content-card")
-
-  allCards.forEach((card) => {
-    cardCounterObserver.unobserve(card)
-    if (card.style.display !== "none") {
-      cardCounterObserver.observe(card)
-    }
-  })
-
-  updateGridCounterDisplay()
-}
-
-// Observer to add "active" classes to Filter Track and Card Counter Widget
+// Observer to add "active" class to Filter Track on scroll
 const filterTrack = document.querySelector(".filter-track")
 const gridContainer = document.querySelector(".content-grid-container")
-const gridCounterWidget = document.querySelector(
-  ".grid-items-counter-widget-container"
-)
 
 const stickyObserver = new IntersectionObserver(
   ([entry]) => {
@@ -594,13 +516,6 @@ const stickyObserver = new IntersectionObserver(
       filterTrack.classList.add("active")
     } else if (containerTop > 60) {
       filterTrack.classList.remove("active")
-    }
-
-    // Add active class to grid counter widget when filter-track reaches 200px from top
-    if (filterTop <= 200 && entry.isIntersecting) {
-      gridCounterWidget.classList.add("active")
-    } else if (containerTop > 200) {
-      gridCounterWidget.classList.remove("active")
     }
   },
   {

@@ -8,8 +8,14 @@ const dataPath = grid.dataset.file
 
 // Fetch JSON data
 async function loadContent() {
-  const response = await fetch(dataPath)
-  content = await response.json()
+  try {
+    const response = await fetch(dataPath)
+    content = await response.json()
+  } catch (error) {
+    console.error("Failed to load content:", error)
+    return
+  }
+
   const categoriesList = [...new Set(content.map((c) => c.category))]
 
   const categoriesCount = content.reduce((counts, item) => {

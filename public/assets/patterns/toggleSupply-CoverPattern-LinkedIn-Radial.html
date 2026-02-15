@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Header - Toggle Supply</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .header-container {
+      width: 1128px;
+      height: 191px;
+      position: relative;
+      overflow: hidden;
+      background: #000000; /* pure black */
+    }
+
+    .pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.6;
+    }
+
+    .pattern svg { position: absolute; }
+
+    .download-btn {
+      padding: 12px 32px;
+      background: #000000;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .download-btn:hover { background: #1c1c1c; }
+    .download-btn:active { background: #0a0a0a; }
+  </style>
+</head>
+<body>
+  <div class="header-container" id="headerContainer">
+    <div class="pattern" id="pattern"></div>
+  </div>
+
+  <button class="download-btn" onclick="downloadHeader()">Download as PNG (3384x573)</button>
+
+  <script>
+    const SVG_SCALE = 0.25;
+    const SPACING = 3;
+    const FADE_START = 0;
+    const FADE_END = 0.75;
+
+    const pattern = document.getElementById('pattern');
+
+    const svgTemplate = `<svg xmlns="http://www.w3.org/2000/svg" width="66" height="57" viewBox="0 0 66 57" fill="none">
+      <path d="M61.1514 31.1016C63.7918 31.1016 65.9316 33.2414 65.9316 35.8818V51.4736C65.9316 54.114 63.7918 56.2538 61.1514 56.2539H4.78027C2.1398 56.2539 6.00153e-05 54.1141 0 51.4736V35.8818C5.01733e-06 33.2413 2.13977 31.1016 4.78027 31.1016H61.1514ZM34.5479 37.0459C33.6732 37.0461 32.965 37.7543 32.9648 38.6289V48.7217C32.9648 49.5965 33.6731 50.3055 34.5479 50.3057H58.4014C59.2763 50.3057 59.9854 49.5966 59.9854 48.7217V38.6289C59.9852 37.7542 59.2761 37.0459 58.4014 37.0459H34.5479ZM61.1514 0C63.7918 7.90014e-05 65.9316 2.13981 65.9316 4.78027V20.3721C65.9316 23.0125 63.7918 25.1523 61.1514 25.1523H4.78027C2.13981 25.1523 7.95533e-05 23.0125 0 20.3721V4.78027C0 2.13976 2.13976 0 4.78027 0H61.1514ZM7.5293 5.94629C6.65459 5.94638 5.94647 6.65461 5.94629 7.5293V17.6221C5.94629 18.4969 6.65449 19.206 7.5293 19.2061H31.3828C32.2577 19.2061 32.9668 18.497 32.9668 17.6221V7.5293C32.9666 6.65456 32.2576 5.94629 31.3828 5.94629H7.5293Z" fill="FILL_COLOR"/>
+    </svg>`;
+
+    const colors = ['#111111', '#222222', '#333333', '#444444', '#555555'];
+
+    const svgWidth = 66 * SVG_SCALE;
+    const svgHeight = 57 * SVG_SCALE;
+    const spacing = SPACING;
+
+    const W = 1128;
+    const H = 191;
+
+    const cols = Math.ceil(W / (svgWidth + spacing)) + 2;
+    const rows = Math.ceil(H / (svgHeight + spacing)) + 2;
+
+    const centerX = W / 2;
+    const centerY = H / 2;
+    const maxDist = Math.hypot(centerX, centerY);
+
+    function hexToRgb(hex) {
+      const v = parseInt(hex.slice(1), 16);
+      return { r: (v >> 16) & 255, g: (v >> 8) & 255, b: v & 255 };
+    }
+
+    function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
+
+    function lerpHex(fromHex, toHex, t) {
+      const a = hexToRgb(fromHex);
+      const b = hexToRgb(toHex);
+      const r = lerp(a.r, b.r, t);
+      const g = lerp(a.g, b.g, t);
+      const b2 = lerp(a.b, b.b, t);
+      return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b2.toString(16).padStart(2,'0')}`;
+    }
+
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const x = col * (svgWidth + spacing) - spacing;
+        const y = row * (svgHeight + spacing) - spacing;
+
+        const cx = x + svgWidth / 2;
+        const cy = y + svgHeight / 2;
+
+        let progress = Math.hypot(cx - centerX, cy - centerY) / maxDist;
+        const randomOffset = (Math.random() - 0.5) * 0.18;
+        progress = Math.max(0, Math.min(1, progress + randomOffset));
+
+        let color;
+        const background = '#000000';
+
+        if (progress < FADE_START) {
+          color = background;
+        } else if (progress >= FADE_END) {
+          color = colors[Math.floor(Math.random() * colors.length)];
+        } else {
+          const t = (progress - FADE_START) / (FADE_END - FADE_START);
+          const target = colors[Math.floor(Math.random() * colors.length)];
+          color = lerpHex(background, target, t);
+        }
+
+        const svgElement = document.createElement('div');
+        svgElement.innerHTML = svgTemplate.replace('FILL_COLOR', color);
+        const svg = svgElement.firstElementChild;
+
+        svg.style.left = `${x}px`;
+        svg.style.top = `${y}px`;
+        svg.style.width = `${svgWidth}px`;
+        svg.style.height = `${svgHeight}px`;
+
+        pattern.appendChild(svg);
+      }
+    }
+
+    function downloadHeader() {
+      const scale = 3;
+      const canvas = document.createElement('canvas');
+      canvas.width = 1128 * scale;
+      canvas.height = 191 * scale;
+      const ctx = canvas.getContext('2d');
+
+      /* pure black export background */
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const svgs = pattern.querySelectorAll('svg');
+
+      const promises = Array.from(svgs).map(svg => {
+        return new Promise((resolve) => {
+          const svgData = new XMLSerializer().serializeToString(svg);
+          const img = new Image();
+
+          img.onload = () => {
+            const x = parseFloat(svg.style.left) * scale;
+            const y = parseFloat(svg.style.top) * scale;
+            const width = parseFloat(svg.style.width) * scale;
+            const height = parseFloat(svg.style.height) * scale;
+
+            ctx.globalAlpha = 0.6;
+            ctx.drawImage(img, x, y, width, height);
+            ctx.globalAlpha = 1.0;
+
+            resolve();
+          };
+
+          img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+        });
+      });
+
+      Promise.all(promises).then(() => {
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'toggle-supply-linkedin-header-3384x573.png';
+          a.click();
+          URL.revokeObjectURL(url);
+        }, 'image/png');
+      });
+    }
+  </script>
+</body>
+</html>

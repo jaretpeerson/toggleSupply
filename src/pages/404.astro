@@ -1,0 +1,63 @@
+---
+import { NAV_LINKS } from "@/config";
+import BaseLayout from "../layouts/baseLayout.astro";
+import NavMain from "@/components/navMain.astro";
+import FooterMain from "@/components/footerMain.astro";
+import "../styles/index.css";
+---
+
+<BaseLayout title="Page Not Found" description="The page you're looking for doesn't exist.">
+
+    <NavMain
+    inspirationLinkHref={NAV_LINKS.inspiration}
+    buttonsLinkHref=""
+    githubLinkHref={NAV_LINKS.github}
+    linkedinLinkHref={NAV_LINKS.linkedinCompany}
+    instagramLinkHref={NAV_LINKS.instagram}
+    emailLinkHref={NAV_LINKS.email}
+    navCenterText="" />
+
+    <div class="container">
+        <section class="error-page">
+            <h1>404</h1>
+            <p>The page you're looking for doesn't exist.</p>
+            <a href="/">Back to Home</a>
+        </section>
+    </div>
+
+    <style>
+        .error-page {
+            min-height: calc(100vh - var(--navMain-heightDesktop));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        .error-page h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .error-page p {
+            margin-bottom: 2rem;
+            color: var(--color-black-9);
+        }
+
+        .error-page a {
+            color: var(--color-white-c);
+            text-decoration: underline;
+            transition: color var(--transition-time-fast);
+        }
+
+        .error-page a:hover {
+            color: #fff;
+        }
+    </style>
+
+    <FooterMain></FooterMain>
+
+</BaseLayout>

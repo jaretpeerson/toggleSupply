@@ -5,6 +5,7 @@ import "../styles/global.css";
 import "../styles/globalPageTransition.css";
 import InfoModal from "@/components/infoModal.astro";
 import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from "@vercel/speed-insights/astro"
 
 const metaTitle = title ? `${SITE_NAME.siteNameFull} | ${title}` : SITE_NAME.siteNameFull;
 const metaDescription = description ?? "A CSS-first component library for modern UI interactions.";
@@ -47,6 +48,7 @@ const metaUrl = canonicalUrl ?? "https://toggle.supply";
   <body>
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
     <Analytics/>
+    <SpeedInsights/>
 
     <InfoModal>
       <slot name="infoModal" />

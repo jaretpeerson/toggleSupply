@@ -1,8 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
-
 /* Note: Most pages depend on/reference this global CSS */
 /* Note: Be sure to import this CSS on ALL pages */
+/* Note: Google Fonts are loaded via <link> tags in baseLayout.astro <head> */
+
+/* Skip to main content link - visible only on keyboard focus */
+.skip-to-main {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 8px 16px;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 0 0 4px 4px;
+}
+.skip-to-main:focus {
+  top: 0;
+}
 
 :root {
   /* L/R Padding */

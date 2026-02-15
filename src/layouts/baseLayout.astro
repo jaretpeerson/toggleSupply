@@ -16,6 +16,12 @@ const metaUrl = canonicalUrl ?? "https://toggle.supply";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/assets/svg/togglesupply-favicon.svg" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
     <link rel="canonical" href={metaUrl} />
     <title>{metaTitle}</title>
     <meta name="description" content={metaDescription} />
@@ -39,15 +45,16 @@ const metaUrl = canonicalUrl ?? "https://toggle.supply";
     <meta name="twitter:image" content={metaImage} />
   </head>
   <body>
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
     <Analytics/>
 
     <InfoModal>
       <slot name="infoModal" />
     </InfoModal>
 
-    <div class="page-content">
+    <main id="main-content" class="page-content">
       <slot />
-    </div>
+    </main>
 
   </body>
 </html>

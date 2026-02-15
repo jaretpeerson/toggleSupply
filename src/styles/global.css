@@ -163,6 +163,11 @@ select {
   outline: none;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-black-5);
+  outline-offset: 2px;
+}
+
 ::selection {
   background: var(--color-black-3);
   color: #fff;

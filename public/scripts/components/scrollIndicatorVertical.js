@@ -26,5 +26,3 @@ function progress() {
 
 progress()
 $(document).on("scroll", progress)
-
-console.log("hi")

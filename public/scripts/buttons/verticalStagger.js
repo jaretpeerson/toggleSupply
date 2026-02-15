@@ -1,11 +1,8 @@
 // Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM loaded")
   const buttons = document.querySelectorAll("button")
-  console.log("Found buttons:", buttons.length)
 
   buttons.forEach((button) => {
-    console.log("Setting up button:", button.textContent)
     setupHoverReplace(button)
   })
 })

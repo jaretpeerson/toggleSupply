@@ -131,7 +131,7 @@ function addNewCards(cards, grid, oneMonthAgo, instant = false, isFirstBatch = f
     const isComponentOrInspiration =
       content.kind === "component" || content.kind === "inspiration"
 
-    const imgAttrs = `width="960" height="540" decoding="async"` +
+    const imgAttrs = `width="750" height="422" decoding="async"` +
       (isFirstBatch && index === 0 ? ` fetchpriority="high"` : "") +
       (!isFirstBatch ? ` loading="lazy"` : "")
 

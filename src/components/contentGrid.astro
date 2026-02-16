@@ -82,6 +82,7 @@ oneMonthAgo.setMonth(now.getMonth() - 1);
                                 height="422"
                                 decoding="async"
                                 fetchpriority={index === 0 ? "high" : undefined}
+                                loading={index >= 3 ? "lazy" : undefined}
                             />
                         </a>
                         <div class="content-data">

@@ -4,6 +4,10 @@ import sitemap from "@astrojs/sitemap"
 export default defineConfig({
   site: "https://toggle.supply",
 
+  build: {
+    inlineStylesheets: "always",
+  },
+
   devToolbar: {
     enabled: false,
   },

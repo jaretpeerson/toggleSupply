@@ -42,7 +42,16 @@ async function loadContent() {
     categoriesTrack.appendChild(filterBtn)
   })
 
-  renderContent(content, grid)
+  // If server-rendered cards exist, adopt them instead of re-rendering
+  const ssrCards = grid.querySelectorAll("[data-ssr]")
+  if (ssrCards.length > 0) {
+    ssrCards.forEach((card) => card.removeAttribute("data-ssr"))
+    currentCards = content
+    currentIndex = ssrCards.length
+    firstRender = false
+  } else {
+    renderContent(content, grid)
+  }
 
   // Filter grid cards on category selection
   categoriesTrack.addEventListener("click", (e) => {

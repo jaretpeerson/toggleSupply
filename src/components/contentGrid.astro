@@ -1,10 +1,22 @@
 ---
 import "@/styles/contentGrid.css";
-const { 
+import fs from "node:fs";
+import path from "node:path";
+
+const {
     dataFile,
     counterWidgetText
-
 } = Astro.props;
+
+// Read JSON at build time and pre-render the first 6 cards
+const jsonPath = path.join(process.cwd(), "public", dataFile);
+const allContent = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+const sorted = [...allContent].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const initialCards = sorted.slice(0, 6);
+
+const now = new Date();
+const oneMonthAgo = new Date();
+oneMonthAgo.setMonth(now.getMonth() - 1);
 ---
 <script type="module" src="/scripts/contentGrid.js"></script>
 <body>
@@ -57,7 +69,38 @@ const {
                 </form>
             </div>
         </section>
-        <section class="content-grid" id="contentGrid" data-file={dataFile}></section>
+        <section class="content-grid" id="contentGrid" data-file={dataFile}>
+            {initialCards.map((item, index) => (
+                <article class="content-card" data-ssr>
+                    {(item.kind === "component" || item.kind === "inspiration") && (
+                        <a href={item.href}>
+                            <img
+                                src={item.image}
+                                alt={item.title}
+                                width="960"
+                                height="540"
+                                decoding="async"
+                                fetchpriority={index === 0 ? "high" : undefined}
+                            />
+                        </a>
+                        <div class="content-data">
+                            <a href={item.href}><h3>{item.title}</h3></a>
+                            <p>Category: {item.category}</p>
+                        </div>
+                    )}
+                    {item.kind === "button" && (
+                        <iframe src={item.html} title={item.title} scrolling="no"></iframe>
+                        <div class="content-data">
+                            <h3>{item.title}</h3>
+                            <p>Category: {item.category}</p>
+                        </div>
+                    )}
+                    {new Date(item.date) >= oneMonthAgo && (
+                        <span class="new-label">New!</span>
+                    )}
+                </article>
+            ))}
+        </section>
         
     </div>
 </body>

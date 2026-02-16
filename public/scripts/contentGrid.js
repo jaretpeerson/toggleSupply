@@ -4,15 +4,14 @@ let content = []
 let itemsPerLoad = 3
 let currentIndex = 0
 let currentCards = []
-const dataPath = grid.dataset.file
 
-// Fetch JSON data
-async function loadContent() {
-  try {
-    const response = await fetch(dataPath)
-    content = await response.json()
-  } catch (error) {
-    console.error("Failed to load content:", error)
+// Load content data from inline JSON or fetch as fallback
+function loadContent() {
+  const inlineData = document.getElementById("contentData")
+  if (inlineData) {
+    content = JSON.parse(inlineData.textContent)
+  } else {
+    console.error("No inline content data found")
     return
   }
 

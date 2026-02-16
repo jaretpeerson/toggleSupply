@@ -18,6 +18,7 @@ const now = new Date();
 const oneMonthAgo = new Date();
 oneMonthAgo.setMonth(now.getMonth() - 1);
 ---
+<script is:inline type="application/json" id="contentData" set:html={JSON.stringify(allContent)}></script>
 <script type="module" src="/scripts/contentGrid.js"></script>
 <body>
     <div class="content-grid-container">

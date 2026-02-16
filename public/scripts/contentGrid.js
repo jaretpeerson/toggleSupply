@@ -91,7 +91,7 @@ function renderContent(cards, grid) {
       grid.innerHTML = ""
 
       const firstBatch = currentCards.slice(0, initialLoadCount)
-      addNewCards(firstBatch, grid, oneMonthAgo)
+      addNewCards(firstBatch, grid, oneMonthAgo, false, true)
 
       grid.style.opacity = "1"
       isRendering = false
@@ -101,7 +101,7 @@ function renderContent(cards, grid) {
     grid.innerHTML = ""
 
     const firstBatch = currentCards.slice(0, initialLoadCount)
-    addNewCards(firstBatch, grid, oneMonthAgo, true)
+    addNewCards(firstBatch, grid, oneMonthAgo, true, true)
 
     isRendering = false
     firstRender = false
@@ -110,7 +110,7 @@ function renderContent(cards, grid) {
 }
 
 // Add cards and fade-in
-function addNewCards(cards, grid, oneMonthAgo, instant = false) {
+function addNewCards(cards, grid, oneMonthAgo, instant = false, isFirstBatch = false) {
   cards.forEach((content, index) => {
     const card = document.createElement("article")
     card.classList.add("content-card")
@@ -119,23 +119,17 @@ function addNewCards(cards, grid, oneMonthAgo, instant = false) {
       card.classList.add("hidden")
     }
 
-    // card.innerHTML = `
-    //   <a href="${content.href}">
-    //     <img src="${content.image}" alt="${content.title}">
-    //   </a>
-    //   <div class="content-data">
-    //     <a href="${content.href}"><h3>${content.title}</h3></a>
-    //     <p>Category: ${content.category}</p>
-    //   </div>
-    // `
-
     const isComponentOrInspiration =
       content.kind === "component" || content.kind === "inspiration"
+
+    const imgAttrs = `width="960" height="540" decoding="async"` +
+      (isFirstBatch && index === 0 ? ` fetchpriority="high"` : "") +
+      (!isFirstBatch ? ` loading="lazy"` : "")
 
     if (isComponentOrInspiration) {
       card.innerHTML = `
     <a href="${content.href}">
-      <img src="${content.image}" alt="${content.title}">
+      <img src="${content.image}" alt="${content.title}" ${imgAttrs}>
     </a>
     <div class="content-data">
       <a href="${content.href}"><h3>${content.title}</h3></a>

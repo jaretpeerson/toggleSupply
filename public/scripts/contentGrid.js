@@ -173,8 +173,11 @@ function addNewCards(cards, grid, oneMonthAgo, instant = false, isFirstBatch = f
       const delay = index * 100
       card.style.transitionDelay = `${delay}ms`
 
-      void card.offsetWidth
-      card.classList.remove("hidden")
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          card.classList.remove("hidden")
+        })
+      })
 
       card.addEventListener(
         "transitionend",

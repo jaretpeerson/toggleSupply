@@ -74,6 +74,14 @@ window.addEventListener(
 )
 
 window.addEventListener(
+  "touchmove",
+  (event) => {
+    event.preventDefault()
+  },
+  { passive: false }
+)
+
+window.addEventListener(
   "touchend",
   (event) => {
     if (isScrolling) return

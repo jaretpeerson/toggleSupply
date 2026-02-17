@@ -53,6 +53,8 @@
   top: 50%;
   transform: translateY(-50%) translateX(25%);
   color: var(--color-black-7);
+  background: none;
+  padding: 0;
   width: 35px;
   height: 35px;
   display: flex;
@@ -155,6 +157,8 @@
   top: 50%;
   margin: 0 10px 0 10px;
   transform: translateY(-50%);
+  background: none;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;

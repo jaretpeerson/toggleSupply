@@ -3,7 +3,7 @@
         "kind": "button",
         "title": "Vertical Stagger",
         "category": "Stagger",
-        "html": "/buttons/verticalStagger",
+        "html": "/buttons/verticalStagger/",
         "css": "../styles/verticalStagger.css",
         "js": "/buttons/verticalStagger.js",
         "date": "2026-1-7",

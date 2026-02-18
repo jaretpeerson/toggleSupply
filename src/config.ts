@@ -7,8 +7,8 @@ export const SITE_NAME = {
 // Navigation Links
 export const NAV_LINKS = {
   home: "/",
-  inspiration: "/inspiration",
-  buttons: "/buttons",
+  inspiration: "/inspiration/",
+  buttons: "/buttons/",
   github: "https://github.com/jaretpeerson",
   githubToggleSupply: "https://github.com/jaretpeerson/toggleSupply",
   twitter: "https://x.com/togglesupply",

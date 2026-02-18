@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /assets/patterns/
 
 Sitemap: https://toggle.supply/sitemap-index.xml

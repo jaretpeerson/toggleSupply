@@ -1,5 +1,5 @@
 ---
-const { title, description, ogImage, canonicalUrl, preloadImage } = Astro.props;
+const { title, description, ogImage, canonicalUrl, preloadImage, noindex } = Astro.props;
 import { SITE_NAME } from "@/config";
 import "../styles/global.css";
 import "../styles/globalPageTransition.css";
@@ -33,6 +33,7 @@ const metaUrl = canonicalUrl ?? new URL(Astro.url.pathname, Astro.site).href;
     <!-- Preload LCP image -->
     {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
     <link rel="canonical" href={metaUrl} />
+    {noindex && <meta name="robots" content="noindex" />}
     <title>{metaTitle}</title>
     <meta name="description" content={metaDescription} />
 

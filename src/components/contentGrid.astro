@@ -76,12 +76,9 @@ oneMonthAgo.setMonth(now.getMonth() - 1);
                     {(item.kind === "component" || item.kind === "inspiration") && (
                         <a href={item.href}>
                             {item.video ? (
-                                <>
-                                    <video muted loop playsinline preload="none" width="750" height="422">
-                                        <source src={item.video} type="video/mp4" />
-                                    </video>
-                                    <img class="video-poster" src={item.image} alt="" width="750" height="422" />
-                                </>
+                                <video autoplay muted loop playsinline preload="none" width="750" height="422">
+                                    <source src={item.video} type="video/mp4" />
+                                </video>
                             ) : (
                                 <img
                                     src={item.image}

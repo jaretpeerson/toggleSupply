@@ -8,18 +8,14 @@ let currentCards = []
 const videoObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     const video = entry.target
-    const poster = video.nextElementSibling
     if (entry.isIntersecting) {
+      video.preload = "metadata"
       video.play()
-      video.addEventListener("playing", () => {
-        if (poster) poster.classList.add("fade-out")
-      }, { once: true })
     } else {
       video.pause()
-      if (poster) poster.classList.remove("fade-out")
     }
   })
-}, { threshold: 0.25 })
+}, { threshold: 0, rootMargin: "200px" })
 
 // Load content data from inline JSON or fetch as fallback
 function loadContent() {
@@ -156,10 +152,9 @@ function addNewCards(cards, grid, oneMonthAgo, instant = false, isFirstBatch = f
       (!isFirstBatch ? ` loading="lazy"` : "")
 
     const mediaHtml = content.video
-      ? `<video muted loop playsinline preload="none" width="750" height="422">
+      ? `<video autoplay muted loop playsinline preload="none" width="750" height="422">
           <source src="${content.video}" type="video/mp4">
-        </video>
-        <img class="video-poster" src="${content.image}" alt="" width="750" height="422">`
+        </video>`
       : `<img src="${content.image}" alt="${content.title}" ${imgAttrs}>`
 
     if (isComponentOrInspiration) {

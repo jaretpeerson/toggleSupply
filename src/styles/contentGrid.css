@@ -427,20 +427,6 @@ body.dragging-global * {
   transition: transform var(--transition-time-fast) ease;
 }
 
-.video-poster {
-  position: absolute;
-  inset: 0;
-  width: 100% !important;
-  height: 100% !important;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 1;
-}
-
-.video-poster.fade-out {
-  opacity: 0;
-}
-
 .content-data {
   margin-left: 2px;
 }

@@ -406,6 +406,7 @@ body.dragging-global * {
 
 .content-card > a,
 .content-card iframe {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,12 +418,27 @@ body.dragging-global * {
   border: 1px solid var(--color-black-2);
 }
 
-.content-card > a img {
+.content-card > a img,
+.content-card > a video {
   display: block;
   width: 101%;
   height: 101%;
   object-fit: cover;
   transition: transform var(--transition-time-fast) ease;
+}
+
+.video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.video-poster.fade-out {
+  opacity: 0;
 }
 
 .content-data {

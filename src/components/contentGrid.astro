@@ -75,14 +75,20 @@ oneMonthAgo.setMonth(now.getMonth() - 1);
                 <article class="content-card" data-ssr>
                     {(item.kind === "component" || item.kind === "inspiration") && (
                         <a href={item.href}>
-                            <img
-                                src={item.image}
-                                alt={item.title}
-                                width="750"
-                                height="422"
-                                decoding="async"
-                                fetchpriority={index === 0 ? "high" : undefined}
-                            />
+                            {item.video ? (
+                                <video muted loop playsinline preload="none" width="750" height="422" poster={item.image}>
+                                    <source src={item.video} type="video/mp4" />
+                                </video>
+                            ) : (
+                                <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    width="750"
+                                    height="422"
+                                    decoding="async"
+                                    fetchpriority={index === 0 ? "high" : undefined}
+                                />
+                            )}
                         </a>
                         <div class="content-data">
                             <a href={item.href}><h3>{item.title}</h3></a>

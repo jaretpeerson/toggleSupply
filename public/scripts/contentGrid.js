@@ -5,6 +5,16 @@ let itemsPerLoad = 3
 let currentIndex = 0
 let currentCards = []
 
+const videoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.play()
+    } else {
+      entry.target.pause()
+    }
+  })
+}, { threshold: 0.25 })
+
 // Load content data from inline JSON or fetch as fallback
 function loadContent() {
   const inlineData = document.getElementById("contentData")
@@ -44,7 +54,11 @@ function loadContent() {
   // If server-rendered cards exist, adopt them instead of re-rendering
   const ssrCards = grid.querySelectorAll("[data-ssr]")
   if (ssrCards.length > 0) {
-    ssrCards.forEach((card) => card.removeAttribute("data-ssr"))
+    ssrCards.forEach((card) => {
+      card.removeAttribute("data-ssr")
+      const video = card.querySelector("video")
+      if (video) videoObserver.observe(video)
+    })
     currentCards = content
     currentIndex = ssrCards.length
     firstRender = false
@@ -96,6 +110,7 @@ function renderContent(cards, grid) {
     grid.style.opacity = "0"
 
     setTimeout(() => {
+      grid.querySelectorAll("video").forEach(v => videoObserver.unobserve(v))
       grid.innerHTML = ""
 
       const firstBatch = currentCards.slice(0, initialLoadCount)
@@ -134,10 +149,16 @@ function addNewCards(cards, grid, oneMonthAgo, instant = false, isFirstBatch = f
       (isFirstBatch && index === 0 ? ` fetchpriority="high"` : "") +
       (!isFirstBatch ? ` loading="lazy"` : "")
 
+    const mediaHtml = content.video
+      ? `<video muted loop playsinline preload="none" width="750" height="422" poster="${content.image}">
+          <source src="${content.video}" type="video/mp4">
+        </video>`
+      : `<img src="${content.image}" alt="${content.title}" ${imgAttrs}>`
+
     if (isComponentOrInspiration) {
       card.innerHTML = `
     <a href="${content.href}">
-      <img src="${content.image}" alt="${content.title}" ${imgAttrs}>
+      ${mediaHtml}
     </a>
     <div class="content-data">
       <a href="${content.href}"><h3>${content.title}</h3></a>
@@ -166,6 +187,9 @@ function addNewCards(cards, grid, oneMonthAgo, instant = false, isFirstBatch = f
     }
 
     grid.appendChild(card)
+
+    const video = card.querySelector("video")
+    if (video) videoObserver.observe(video)
 
     // Staggered fade-in
     if (!instant) {

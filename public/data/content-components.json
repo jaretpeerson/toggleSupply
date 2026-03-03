@@ -134,6 +134,7 @@
         "title": "Expandable Directory",
         "category": "Dropdown",
         "image": "/assets/thumbnails/thumbnail-13.webp",
+        "video": "https://vz-38d54223-6f4.b-cdn.net/7471aeec-d176-4e86-80bb-0864777b077d/play_720p.mp4",
         "href": "/components/expandableDirectory/",
         "date": "2026-2-16",
         "tags": ["directory", "expand", "team", "avatars", "dropdown", "reveal", "interaction", "ui", "profile"],

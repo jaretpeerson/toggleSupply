@@ -107,6 +107,7 @@ body.dragging-global * {
   cursor: grab;
   letter-spacing: var(--letter-spacing);
   transition: background var(--transition-time-fast) ease;
+  word-spacing: var(--word-spacing);
 }
 
 .categories-btn.active {

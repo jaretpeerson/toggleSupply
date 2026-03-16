@@ -75,6 +75,7 @@
   --buttonPadding-horizontal: 9px;
 
   /* Animation: Speeds */
+  --transition-time-xfast: 0.15s;
   --transition-time-fast: 0.3s;
   --transition-time-med: 0.5s;
   --transition-time-slow: 0.8s;

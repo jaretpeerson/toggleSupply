@@ -3,7 +3,7 @@
 }
 
 .scroll-media-track {
-  height: 500vw;
+  height: 400vw;
 }
 
 .scroll-media-section {
@@ -20,15 +20,16 @@
 
 .scroll-media-wrapper {
   width: var(--wrapper-width);
+  position: relative;
   height: 40vh;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
 }
 
 .scroll-media-card {
   height: 100%;
   width: calc(var(--wrapper-width) / 5);
+  position: absolute;
+  left: 50%;
+  transform: translateX(calc(-50% + var(--progress) * var(--card-offset)));
 }
 
 .scroll-media-card img {
@@ -36,4 +37,21 @@
   height: 100%;
   object-fit: cover;
   border-radius: var(--rounded-corners-med);
+}
+
+[data-index="1"] {
+  --card-offset: -200%;
+}
+[data-index="2"] {
+  --card-offset: -100%;
+}
+[data-index="3"] {
+  --card-offset: 0%;
+  z-index: 1;
+}
+[data-index="4"] {
+  --card-offset: 100%;
+}
+[data-index="5"] {
+  --card-offset: 200%;
 }

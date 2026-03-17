@@ -1,14 +1,17 @@
 :root {
   --wrapper-width: 90vw;
+  --card-gap: 20px;
+  --max-blur: 60px;
 }
 
 .scroll-media-track {
-  height: 400vw;
+  height: 500vw;
 }
 
 .scroll-media-section {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  padding-top: var(--navMain-heightDesktop);
   margin-top: calc(-1 * var(--navMain-heightDesktop));
   position: sticky;
   left: 0;
@@ -26,10 +29,25 @@
 
 .scroll-media-card {
   height: 100%;
-  width: calc(var(--wrapper-width) / 5);
+  width: calc((var(--wrapper-width) - 4 * var(--card-gap)) / 5);
   position: absolute;
   left: 50%;
-  transform: translateX(calc(-50% + var(--progress) * var(--card-offset)));
+  --card-rotate: 0deg;
+  --fade-start: 0;
+  transform: translateX(calc(-50% + var(--progress) * var(--card-offset)))
+    rotateY(calc(var(--card-rotate) * (1 - var(--progress))));
+  opacity: clamp(0, (1 - var(--fade-progress, 0)) / (1 - var(--fade-start)), 1);
+  filter: blur(
+    calc(
+      clamp(
+          0,
+          (var(--fade-progress, 0) - var(--fade-start)) /
+            (1 - var(--fade-start)),
+          1
+        ) *
+        var(--max-blur)
+    )
+  );
 }
 
 .scroll-media-card img {
@@ -40,18 +58,27 @@
 }
 
 [data-index="1"] {
-  --card-offset: -200%;
+  --card-offset: calc(-200% - 2 * var(--card-gap));
+  --card-rotate: -180deg;
+  --fade-start: 0.9;
 }
 [data-index="2"] {
-  --card-offset: -100%;
+  --card-offset: calc(-100% - 1 * var(--card-gap));
+  --card-rotate: -180deg;
+  --fade-start: 0.65;
 }
 [data-index="3"] {
   --card-offset: 0%;
+  --fade-start: 0;
   z-index: 1;
 }
 [data-index="4"] {
-  --card-offset: 100%;
+  --card-offset: calc(100% + 1 * var(--card-gap));
+  --card-rotate: 180deg;
+  --fade-start: 0.65;
 }
 [data-index="5"] {
-  --card-offset: 200%;
+  --card-offset: calc(200% + 2 * var(--card-gap));
+  --card-rotate: 180deg;
+  --fade-start: 0.9;
 }

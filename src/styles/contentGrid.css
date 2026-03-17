@@ -107,6 +107,7 @@ body.dragging-global * {
   cursor: grab;
   letter-spacing: var(--letter-spacing);
   transition: background var(--transition-time-fast) ease;
+  word-spacing: var(--word-spacing);
 }
 
 .categories-btn.active {
@@ -406,6 +407,7 @@ body.dragging-global * {
 
 .content-card > a,
 .content-card iframe {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,7 +419,8 @@ body.dragging-global * {
   border: 1px solid var(--color-black-2);
 }
 
-.content-card > a img {
+.content-card > a img,
+.content-card > a video {
   display: block;
   width: 101%;
   height: 101%;

@@ -6,7 +6,7 @@ import "../../styles/components/expandImageHover.css";
 
 <script type="module" src="/scripts/components/expandImageHover.js"></script>
 
-<BaseLayout title="Expand Image on Hover" description="An image gallery where items expand on hover using CSS flex-grow transitions and JavaScript-driven transform origins.">
+<BaseLayout title="Expand Image on Hover" description="An image gallery where items smoothly expand on hover using proximity-based flex values and frame-by-frame interpolation.">
     <NavMain
     title="Expand Image on Hover"
     navCenterText="Expand Image on Hover"
@@ -16,7 +16,7 @@ import "../../styles/components/expandImageHover.css";
 
     <div class="gallery-container">
         <div class="gallery">
-            <div class="image-container active"><img src="/assets/images/image-18.webp" alt="Gallery image 1"></div>
+            <div class="image-container"><img src="/assets/images/image-18.webp" alt="Gallery image 1"></div>
             <div class="image-container"><img src="/assets/images/image-56.webp" alt="Gallery image 2"></div>
             <div class="image-container"><img src="/assets/images/image-52.webp" alt="Gallery image 3"></div>
             <div class="image-container"><img src="/assets/images/image-2.webp" alt="Gallery image 4"></div>
@@ -29,11 +29,10 @@ import "../../styles/components/expandImageHover.css";
         </div>
     </div>
     <Fragment slot="infoModal">
-        <p>A main container holds and positions the images at the center of the page using flexbox align center and justify content center.</p> 
-        <p>An additional flexbox arranges a gallery of images in a row with a small gap between each item.</p> 
-        <p>The expanded image receives an additional "active" class, with the first image having this class hardcoded in the starting HTML. The "active" class is given a property of flex: 3, making the hovered image expand to three times the size of the other flex items. On mobile, a media query increases this value to 4 for a more noticeable effect, as mobile vertical screen widths are much smaller.</p> 
-        <p>JavaScript listens for hover events. As images are hovered, JavaScript loops through and removes the "active" class from all images and applies it back to the image being hovered.</p> 
-        <p>JavaScript also detects the horizontal mouse entry point and sets the transform origin to the side (left or right) where the cursor enters. This makes the animation of cards expanding and collapsing much smoother. If we only used the CSS flex-grow approach on hovered flex items (which is possible), the active image would always expand from the center, resulting in a more jarring hover animation. Additionally, applying an active class to the hovered image allows for one image, whichever is last hovered, to be expanded at all times.</p> 
+        <p>A main container holds and positions the images at the center of the page using flexbox align center and justify content center.</p>
+        <p>An additional flexbox arranges a gallery of images in a row with a small gap between each item.</p>
+        <p>JavaScript listens for mousemove events on the gallery. As the cursor moves, JavaScript calculates how close each image is to the mouse position and assigns a flex value based on that proximity. Images closer to the cursor expand more, while images further away shrink back to their base size. This creates a smooth, wave-like effect that follows the cursor across the gallery.</p>
+        <p>Instead of toggling CSS classes, flex values are interpolated frame-by-frame using requestAnimationFrame. Each frame, the current flex value moves a fraction of the way toward its target, creating a fluid gliding motion rather than an instant snap. When the cursor leaves the gallery, all images smoothly return to equal sizes.</p>
         <p>CSS media queries remove images from the DOM on smaller screen sizes using the :nth-child pseudo-class. For example, on tablets, we can remove the last three images using :nth-child(10), :nth-child(9), and :nth-child(8). We continue this technique down to mobile, where only four images are shown. Selecting via :nth-child gives us the flexibility to dynamically adjust content without having to target specific image IDs.</p>
     </Fragment>
 </BaseLayout>

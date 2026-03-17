@@ -4,9 +4,8 @@ import NavMain from "@/components/navMain.astro";
 import "../../styles/components/expandableDirectory.css";
 ---
 
-<script type="module" src="/scripts/components/expandableDirectory.js"></script>
-
 <BaseLayout title="Expandable Directory" description="An expandable directory component with avatar grid, stacked collapse animation, and CSS-driven toggle transitions.">
+<script type="module" src="/scripts/components/expandableDirectory.js"></script>
 <NavMain
     title="Expandable Directory"
     navCenterText="Expandable Directory"
@@ -19,11 +18,11 @@ import "../../styles/components/expandableDirectory.css";
 
             <div class="top-bar">
                 <div class="top-bar-title">Team Members</div>
-                <div class="top-bar-close-icon">
+                <button class="top-bar-close-icon" aria-label="Close">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" fill="none">
                         <path d="M16.2871 0.62551C17.1211 1.45953 17.1209 2.81176 16.2871 3.64591L11.4202 8.51279L16.1753 13.2678C17.0093 14.1019 17.0092 15.4541 16.1753 16.2882C15.3411 17.1223 13.989 17.1223 13.1549 16.2882L8.39985 11.5332L3.7567 16.1763C2.92257 17.0104 1.57041 17.0104 0.736306 16.1763C-0.0978009 15.3422 -0.0977648 13.9901 0.736306 13.1559L5.37946 8.51279L0.62513 3.75846C-0.208995 2.92434 -0.209686 1.5715 0.62444 0.737376C1.45858 -0.0965723 2.81146 -0.0959996 3.64553 0.738067L8.39985 5.49239L13.2667 0.62551C14.1009 -0.208285 15.4531 -0.208505 16.2871 0.62551Z" fill="currentColor"/>
                     </svg>
-                </div>
+                </button>
             </div>
 
             <div class="dialogue-box-content">
@@ -65,18 +64,18 @@ import "../../styles/components/expandableDirectory.css";
                     </ul>
                 </div>
 
-                <button class="cta">View All</button>
+                <button class="cta" aria-label="View all team members">View All</button>
 
             </div>
 
-            <div class="dropdown-selector">
-                <div class="dropdown-count"></div> <!-- Text content value dynamically counted via JS -->
-                <div class="dropdown-icon">
+            <button class="dropdown-selector" aria-label="Expand team members">
+                <span class="dropdown-count"></span> <!-- Text content value dynamically counted via JS -->
+                <span class="dropdown-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 14" fill="none">
                         <path d="M19.9028 0.683408C20.84 -0.227803 22.3598 -0.227803 23.2971 0.683408C24.2343 1.59462 24.2343 3.07218 23.2971 3.98339L13.6971 13.3166C12.7599 14.2278 11.2401 14.2278 10.3029 13.3166L0.702938 3.98339C-0.234313 3.07218 -0.234313 1.59462 0.702938 0.683408C1.64019 -0.227803 3.15998 -0.227803 4.09723 0.683408L12 8.36662L19.9028 0.683408Z" fill="currentColor"/>
                     </svg>
-                </div>
-            </div>
+                </span>
+            </button>
 
         </div>
     </div>

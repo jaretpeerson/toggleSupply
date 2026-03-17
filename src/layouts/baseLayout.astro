@@ -1,15 +1,16 @@
 ---
-const { title, description, ogImage, canonicalUrl } = Astro.props;
+const { title, description, ogImage, canonicalUrl, preloadImage, noindex } = Astro.props;
 import { SITE_NAME } from "@/config";
 import "../styles/global.css";
 import "../styles/globalPageTransition.css";
 import InfoModal from "@/components/infoModal.astro";
 import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from "@vercel/speed-insights/astro"
 
 const metaTitle = title ? `${SITE_NAME.siteNameFull} | ${title}` : SITE_NAME.siteNameFull;
 const metaDescription = description ?? "A CSS-first component library for modern UI interactions.";
 const metaImage = ogImage ?? "https://toggle.supply/assets/og-image/togglesupply-OGImage.png";
-const metaUrl = canonicalUrl ?? "https://toggle.supply";
+const metaUrl = canonicalUrl ?? new URL(Astro.url.pathname, Astro.site).href;
 ---
 <html lang="en">
   <head>
@@ -17,12 +18,23 @@ const metaUrl = canonicalUrl ?? "https://toggle.supply";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/assets/svg/togglesupply-favicon.svg" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (async to avoid render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://vz-38d54223-6f4.b-cdn.net" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- Preload LCP image -->
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
     <link rel="canonical" href={metaUrl} />
+    {noindex && <meta name="robots" content="noindex" />}
     <title>{metaTitle}</title>
     <meta name="description" content={metaDescription} />
 
@@ -47,6 +59,7 @@ const metaUrl = canonicalUrl ?? "https://toggle.supply";
   <body>
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
     <Analytics/>
+    <SpeedInsights/>
 
     <InfoModal>
       <slot name="infoModal" />

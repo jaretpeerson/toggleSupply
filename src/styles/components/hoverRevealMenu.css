@@ -63,6 +63,15 @@
   margin-left: 0.5ch;
 }
 
+@media (hover: hover) {
+  .btn:hover .btn-text {
+    max-width: 500px;
+    opacity: 1;
+    pointer-events: auto;
+    margin-left: 0.5ch;
+  }
+}
+
 @media screen and (max-width: 650px) {
   .btn-section {
     height: var(--body-height-nav-mobile);

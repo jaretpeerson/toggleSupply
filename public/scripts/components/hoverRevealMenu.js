@@ -5,15 +5,13 @@ button.forEach((btn) => {
   const btnText = btn.querySelector(".btn-text")
 
   const navLink = btn.getAttribute("href")
-  let isCurrentPage = false
 
   if (navLink && navLink !== "#") {
     const navURL = new URL(navLink, window.location.href)
-    const navPathEnding = navURL.pathname.split("/").pop()
+    const navPathEnding = navURL.pathname.replace(/\/$/, "").split("/").pop()
 
-    if (window.location.pathname.endsWith(navPathEnding)) {
+    if (window.location.pathname.replace(/\/$/, "").endsWith(navPathEnding)) {
       btnText.classList.add("active")
-      isCurrentPage = true
     }
   }
 
@@ -24,16 +22,6 @@ button.forEach((btn) => {
       })
 
       btnText.classList.add("active")
-    })
-  } else {
-    btn.addEventListener("mouseenter", () => {
-      btnText.classList.add("active")
-    })
-
-    btn.addEventListener("mouseleave", () => {
-      if (!isCurrentPage) {
-        btnText.classList.remove("active")
-      }
     })
   }
 })

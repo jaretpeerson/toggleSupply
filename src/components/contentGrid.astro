@@ -1,11 +1,24 @@
 ---
 import "@/styles/contentGrid.css";
-const { 
+import fs from "node:fs";
+import path from "node:path";
+
+const {
     dataFile,
     counterWidgetText
-
 } = Astro.props;
+
+// Read JSON at build time and pre-render the first 6 cards
+const jsonPath = path.join(process.cwd(), "public", dataFile);
+const allContent = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+const sorted = [...allContent].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const initialCards = sorted.slice(0, 6);
+
+const now = new Date();
+const oneMonthAgo = new Date();
+oneMonthAgo.setMonth(now.getMonth() - 1);
 ---
+<script is:inline type="application/json" id="contentData" set:html={JSON.stringify(allContent)}></script>
 <script type="module" src="/scripts/contentGrid.js"></script>
 <body>
     <div class="content-grid-container">
@@ -47,7 +60,7 @@ const {
             <div class="filter-track-right">
                 <form class="filter-track-search">
                     <input class="search-input" type="search" placeholder="Search" aria-label="Search">
-                    <button type="submit">
+                    <button type="submit" aria-label="Search">
                         <div class="search-icon">
                             <svg viewBox="0 0 145 145" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M64.4963 1.45455e-07C54.2109 0.000876369 44.0748 2.46133 34.9337 7.17608C25.7926 11.8908 17.9115 18.7232 11.9481 27.103C5.98468 35.4829 2.11177 45.1674 0.652495 55.3484C-0.806776 65.5294 0.189911 75.9117 3.5594 85.6292C6.92889 95.3467 12.5735 104.118 20.0222 111.21C27.471 118.302 36.5079 123.511 46.379 126.401C56.2501 129.29 66.6692 129.778 76.767 127.822C86.8648 125.866 96.3484 121.524 104.427 115.158L132.14 142.87C133.571 144.252 135.488 145.017 137.477 145C139.467 144.982 141.37 144.184 142.777 142.777C144.184 141.371 144.982 139.467 145 137.478C145.017 135.488 144.252 133.571 142.87 132.14L115.157 104.428C122.654 94.9174 127.322 83.488 128.627 71.4481C129.932 59.4081 127.82 47.2441 122.534 36.348C117.249 25.452 109.002 16.2641 98.7377 9.83601C88.4737 3.40789 76.6072 -0.000813021 64.4963 1.45455e-07ZM15.1714 64.4994C15.1714 51.4181 20.3681 38.8726 29.6183 29.6227C38.8686 20.3728 51.4146 15.1763 64.4963 15.1763C77.5781 15.1763 90.1241 20.3728 99.3743 29.6227C108.625 38.8726 113.821 51.4181 113.821 64.4994C113.821 77.5807 108.625 90.1262 99.3743 99.376C90.1241 108.626 77.5781 113.822 64.4963 113.822C51.4146 113.822 38.8686 108.626 29.6183 99.376C20.3681 90.1262 15.1714 77.5807 15.1714 64.4994Z" fill="currentColor"/>
@@ -57,15 +70,44 @@ const {
                 </form>
             </div>
         </section>
-        <section class="content-grid" id="contentGrid" data-file={dataFile}></section>
-
-        <!-- Temporarily taking this out. May add back to footer.
-        <div class="grid-items-counter-widget-container">
-            <div class="grid-items-counter-widget">
-                <span>&nbsp;{counterWidgetText}</span>
-            </div>
-        </div>
-        -->
+        <section class="content-grid" id="contentGrid" data-file={dataFile}>
+            {initialCards.map((item, index) => (
+                <article class="content-card" data-ssr>
+                    {(item.kind === "component" || item.kind === "inspiration") && (
+                        <a href={item.href}>
+                            {item.video ? (
+                                <video autoplay muted loop playsinline preload="none" width="750" height="422">
+                                    <source src={item.video} type="video/mp4" />
+                                </video>
+                            ) : (
+                                <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    width="750"
+                                    height="422"
+                                    decoding="async"
+                                    fetchpriority={index === 0 ? "high" : undefined}
+                                />
+                            )}
+                        </a>
+                        <div class="content-data">
+                            <a href={item.href}><h3>{item.title}</h3></a>
+                            <p>Category: {item.category}</p>
+                        </div>
+                    )}
+                    {item.kind === "button" && (
+                        <iframe src={item.html} title={item.title} scrolling="no"></iframe>
+                        <div class="content-data">
+                            <h3>{item.title}</h3>
+                            <p>Category: {item.category}</p>
+                        </div>
+                    )}
+                    {new Date(item.date) >= oneMonthAgo && (
+                        <span class="new-label">New!</span>
+                    )}
+                </article>
+            ))}
+        </section>
         
     </div>
 </body>

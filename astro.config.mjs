@@ -3,6 +3,11 @@ import sitemap from "@astrojs/sitemap"
 
 export default defineConfig({
   site: "https://toggle.supply",
+  trailingSlash: "always",
+
+  build: {
+    inlineStylesheets: "always",
+  },
 
   devToolbar: {
     enabled: false,
@@ -16,5 +21,5 @@ export default defineConfig({
     },
   },
 
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes("/404") })],
 })

@@ -7,9 +7,8 @@ import FooterMain from "@/components/footerMain.astro";
 import "../styles/index.css";
 ---
 <script type="module" src="/scripts/inspiration.js"></script>
-<script type="module" src="/scripts/footerMain.js"></script>
 
-<BaseLayout title="Inspiration">
+<BaseLayout title="Inspiration" description="A growing archive of websites that push the boundaries of design and interaction.">
 
     <NavMain 
     inspirationLinkHref={NAV_LINKS.inspiration}
@@ -22,7 +21,7 @@ import "../styles/index.css";
 
     <div class="container">
         <section class="intro-text">
-        <p>A growing archive of websites that push the boundaries of design and interaction.</p>
+        <h1>A growing archive of websites that push the boundaries of design and interaction.</h1>
     </section>
 
     <ContentGrid

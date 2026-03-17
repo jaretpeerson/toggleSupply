@@ -2,22 +2,22 @@ const footerMobilePieMenu = document.getElementById("footer-mobile-pie-menu")
 const footerMobileWrapper = document.querySelector(".footer-mobile-wrapper")
 const footerMobileBackdrop = document.querySelector(".footer-mobile-backdrop")
 const footerMobilePieMenuText = document.querySelector(
-  ".footer-mobile-item.pie-menu .footer-mobile-text"
+  ".footer-mobile-item.pie-menu .footer-mobile-text",
 )
 const footerMobilePieMenuItem = document.querySelector(
-  ".footer-mobile-item.pie-menu"
+  ".footer-mobile-item.pie-menu",
 )
 
 // Float footer
 const footerMobileShareProject = document.querySelector(
-  ".footer-mobile-item.share-project"
+  ".footer-mobile-item.share-project",
 )
 const footerMobileShareProjectText =
   footerMobileShareProject?.querySelector("p")
 
 // Fixed footer
 const footerMobileFixedShareProject = document.querySelector(
-  ".footer-mobile-fixed-item.share-project"
+  ".footer-mobile-fixed-item.share-project",
 )
 const footerMobileFixedShareProjectText =
   footerMobileFixedShareProject?.querySelector("p")
@@ -44,14 +44,14 @@ if (footerMobileShareProject) {
     navigator.clipboard.writeText(currentUrl)
 
     if (footerMobileShareProjectText) {
-      footerMobileShareProjectText.textContent = "Link Copied"
+      footerMobileShareProjectText.textContent = "Link Copied!"
 
       if (shareProjectTimeout) {
         clearTimeout(shareProjectTimeout)
       }
 
       shareProjectTimeout = setTimeout(() => {
-        footerMobileShareProjectText.textContent = "Share Project"
+        footerMobileShareProjectText.textContent = "Share"
       }, 2200)
     }
   })
@@ -63,14 +63,14 @@ if (footerMobileFixedShareProject) {
     navigator.clipboard.writeText(currentUrl)
 
     if (footerMobileFixedShareProjectText) {
-      footerMobileFixedShareProjectText.textContent = "Link Copied"
+      footerMobileFixedShareProjectText.textContent = "Link Copied!"
 
       if (shareProjectTimeout) {
         clearTimeout(shareProjectTimeout)
       }
 
       shareProjectTimeout = setTimeout(() => {
-        footerMobileFixedShareProjectText.textContent = "Share Project"
+        footerMobileFixedShareProjectText.textContent = "Share"
       }, 2200)
     }
   })

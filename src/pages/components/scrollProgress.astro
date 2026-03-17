@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../layouts/baseLayout.astro";
+import NavMain from "@/components/navMain.astro";
+import "../../styles/components/scrollProgress.css";
+---
+
+<script type="module" src="/scripts/components/scrollProgress.js"></script>
+
+<BaseLayout title="Scroll Progress" description="PLACEHOLDER">
+<NavMain
+    atitle="Scroll Progress"
+    navCenterText="Scroll Progress"
+    htmlLinkHref="https://github.com/jaretpeerson/toggleSupply/blob/main/src/pages/components/scrollProgress.astro"
+    cssLinkHref="https://github.com/jaretpeerson/toggleSupply/blob/main/src/styles/components/scrollProgress.css"
+    javascriptLinkHref="https://github.com/jaretpeerson/toggleSupply/blob/main/public/scripts/components/scrollProgress.js" />
+
+    <div class="scroll-progress-wrapper">
+        <div class="scroll-progress-container">
+            <div class="scroll-left" data-string="scroll"></div>
+            <div class="scroll-middle" data-string="scroll"></div>
+            <div class="scroll-right" data-string="scroll"></div>
+        </div>
+    </div>
+
+
+</BaseLayout>

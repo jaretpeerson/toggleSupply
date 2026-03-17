@@ -1,0 +1,25 @@
+.scroll-progress-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-progress-container {
+  width: 600px;
+  height: 60px;
+  background-color: var(--color-black-2);
+}
+
+.scroll-left {
+  width:;
+}
+
+.scroll-middle {
+  width:;
+}
+
+.scroll-right {
+  width:;
+}

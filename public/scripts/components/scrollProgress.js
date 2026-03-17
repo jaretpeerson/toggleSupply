@@ -1,6 +1,6 @@
-const elements = document.querySelectorAll('[data-string="scroll"]')
+const cards = document.querySelectorAll('[data-string="scroll"]')
 
-elements.forEach((el) => {
+cards.forEach((el) => {
   el.style.setProperty("--progress", 0)
   el.style.setProperty("--fade-progress", 0)
 })
@@ -19,18 +19,19 @@ window.addEventListener("resize", () => {
   scrollHeight = document.documentElement.scrollHeight - window.innerHeight
 })
 
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY
-  const halfHeight = scrollHeight * 0.5
+window.addEventListener(
+  "scroll",
+  () => {
+    const scrollY = window.scrollY
+    const halfScrollHeight = scrollHeight * 0.5
 
-  // Phase 1: cards fan out (first half)
-  const rawProgress = clamp01(scrollY / halfHeight)
+    const phaseOne = clamp01(scrollY / halfScrollHeight)
+    const phaseTwo = clamp01((scrollY - halfScrollHeight) / halfScrollHeight)
 
-  // Phase 2: cards blur and fade out from center (second half)
-  const rawFade = clamp01((scrollY - halfHeight) / halfHeight)
-
-  elements.forEach((el) => {
-    el.style.setProperty("--progress", easeOut(rawProgress))
-    el.style.setProperty("--fade-progress", easeOut(rawFade))
-  })
-}, { passive: true })
+    cards.forEach((el) => {
+      el.style.setProperty("--progress", easeOut(phaseOne))
+      el.style.setProperty("--fade-progress", easeOut(phaseTwo))
+    })
+  },
+  { passive: true },
+)

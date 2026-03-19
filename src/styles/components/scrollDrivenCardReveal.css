@@ -92,6 +92,18 @@ body {
 }
 
 @media screen and (max-width: 650px) {
+  .scroll-media-track {
+    height: 650vw;
+  }
+
+  .scroll-media-wrapper {
+    width: var(--wrapper-width);
+    max-width: 1800px;
+    position: relative;
+    height: 40vh;
+    max-height: 200px;
+  }
+
   .scroll-media-card {
     width: calc((var(--wrapper-width) - 2 * var(--card-gap)) / 3);
   }

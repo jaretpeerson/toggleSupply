@@ -144,6 +144,17 @@
     },
     {
         "kind": "component",
+        "title": "Scroll-Driven Card Reveal",
+        "category": "Scroll",
+        "image": "",
+        "video": "https://vz-38d54223-6f4.b-cdn.net/9ef962e6-f5ea-4651-accd-6a3ff1483c2d/play_720p.mp4",
+        "href": "/components/scrollDrivenCardReveal/",
+        "date": "2026-03-19",
+        "tags": ["scroll", "card", "reveal", "flip", "scroll-driven", "animation", "cards", "transition"],
+        "showOnMobile": true
+    },
+    {
+        "kind": "component",
         "title": "Expandable Directory",
         "category": "Dropdown",
         "image": "/assets/thumbnails/thumbnail-13.webp",

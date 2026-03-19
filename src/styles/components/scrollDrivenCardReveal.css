@@ -92,6 +92,11 @@ body {
 }
 
 @media screen and (max-width: 650px) {
+  .scroll-media-section {
+    padding-top: var(--navMain-heightMobile);
+    margin-top: calc(-1 * var(--navMain-heightMobile));
+  }
+
   .scroll-media-track {
     height: 650vw;
   }

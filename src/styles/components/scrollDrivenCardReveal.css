@@ -4,8 +4,13 @@
   --max-blur: 60px;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 .scroll-media-track {
-  height: 500vw;
+  height: 450vw;
 }
 
 .scroll-media-section {
@@ -23,8 +28,10 @@
 
 .scroll-media-wrapper {
   width: var(--wrapper-width);
+  max-width: 1800px;
   position: relative;
   height: 40vh;
+  max-height: 1000px;
 }
 
 .scroll-media-card {
@@ -36,6 +43,7 @@
   --fade-start: 0;
   transform: translateX(calc(-50% + var(--progress) * var(--card-offset)))
     rotateY(calc(var(--card-rotate) * (1 - var(--progress))));
+  transition: margin-top var(--transition-time-fast) ease;
   opacity: clamp(0, (1 - var(--fade-progress, 0)) / (1 - var(--fade-start)), 1);
   filter: blur(
     calc(
@@ -81,4 +89,15 @@
   --card-offset: calc(200% + 2 * var(--card-gap));
   --card-rotate: 180deg;
   --fade-start: 0.9;
+}
+
+@media screen and (max-width: 650px) {
+  .scroll-media-card {
+    width: calc((var(--wrapper-width) - 2 * var(--card-gap)) / 3);
+  }
+
+  [data-index="1"],
+  [data-index="5"] {
+    display: none;
+  }
 }

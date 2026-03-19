@@ -1,8 +1,8 @@
 const cards = document.querySelectorAll('[data-string="scroll"]')
 
-cards.forEach((el) => {
-  el.style.setProperty("--progress", 0)
-  el.style.setProperty("--fade-progress", 0)
+cards.forEach((card) => {
+  card.style.setProperty("--progress", 0)
+  card.style.setProperty("--fade-progress", 0)
 })
 
 function easeOut(t) {
@@ -28,9 +28,9 @@ window.addEventListener(
     const phaseOne = clamp01(scrollY / halfScrollHeight)
     const phaseTwo = clamp01((scrollY - halfScrollHeight) / halfScrollHeight)
 
-    cards.forEach((el) => {
-      el.style.setProperty("--progress", easeOut(phaseOne))
-      el.style.setProperty("--fade-progress", easeOut(phaseTwo))
+    cards.forEach((card) => {
+      card.style.setProperty("--progress", easeOut(phaseOne))
+      card.style.setProperty("--fade-progress", easeOut(phaseTwo))
     })
   },
   { passive: true },

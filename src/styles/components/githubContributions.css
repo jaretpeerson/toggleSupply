@@ -26,6 +26,8 @@
   flex-direction: row;
   gap: var(--grid-gap);
   padding: 20px;
+  border: 2px solid var(--color-black-1c);
+  border-radius: 5px;
 }
 
 .github-graph-columns {
@@ -40,6 +42,12 @@
   width: var(--cell-size);
   height: var(--cell-size);
   border-radius: 1.5px;
+  transform: scale(
+    calc(
+      0.5 + 0.5 *
+        clamp(0, (var(--progress, 0) - var(--col-threshold, 0)) * 20, 1)
+    )
+  );
 }
 
 .github-graph-cell[data-level="empty"] {

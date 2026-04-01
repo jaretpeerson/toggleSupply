@@ -27,7 +27,7 @@
   gap: var(--grid-gap);
   padding: 20px;
   border: 2px solid var(--color-black-1c);
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 .github-graph-columns {

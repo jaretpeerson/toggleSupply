@@ -9,7 +9,7 @@ async function fetchContributions() {
 }
 
 function buildGrid(contributions) {
-  const wrapper = document.querySelector(".github-graph-wrapper")
+  const wrapper = document.querySelector(".github-graph-grid")
   wrapper.innerHTML = ""
 
   const firstDate = new Date(contributions[0].date + "T00:00:00")

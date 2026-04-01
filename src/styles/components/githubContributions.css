@@ -23,11 +23,28 @@
 
 .github-graph-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: var(--grid-gap);
   padding: 20px;
-  border: 2px solid var(--color-black-1c);
-  border-radius: 7px;
+  color: var(--color-black-4);
+  font-size: 0.85rem;
+}
+
+.github-graph-grid {
+  display: flex;
+  flex-direction: row;
+  gap: var(--grid-gap);
+}
+
+.github-graph-months {
+  width: 100%;
+  font-family: "JetBrains Mono", monospace;
+  text-transform: uppercase;
+  display: flex;
+}
+
+.github-graph-months span {
+  flex: 1;
 }
 
 .github-graph-columns {
@@ -42,12 +59,6 @@
   width: var(--cell-size);
   height: var(--cell-size);
   border-radius: 1.5px;
-  transform: scale(
-    calc(
-      0.5 + 0.5 *
-        clamp(0, (var(--progress, 0) - var(--col-threshold, 0)) * 20, 1)
-    )
-  );
 }
 
 .github-graph-cell[data-level="empty"] {

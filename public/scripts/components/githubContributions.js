@@ -36,7 +36,7 @@ function buildGrid(contributions) {
   weeks.forEach((week, colIndex) => {
     const column = document.createElement("div")
     column.classList.add("github-graph-columns")
-    column.style.setProperty("--col-threshold", colIndex / totalCols)
+    column.style.setProperty("--col-threshold", (colIndex / totalCols) * 0.97)
 
     for (const day of week) {
       const cell = document.createElement("div")

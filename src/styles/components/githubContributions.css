@@ -1,0 +1,62 @@
+:root {
+  --cell-size: 14px;
+  --grid-gap: 6px;
+}
+
+.github-graph-track {
+  height: 250vw;
+  width: 100%;
+}
+
+.github-graph-section {
+  height: var(--body-height-nav-desktop);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  right: 0;
+  padding-top: var(--navMain-heightDesktop);
+  margin-top: calc(-1 * var(--navMain-heightDesktop));
+}
+
+.github-graph-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: var(--grid-gap);
+}
+
+.github-graph-columns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--grid-gap);
+}
+
+.github-graph-cell {
+  position: relative;
+  background: var(--color-black-1c);
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border-radius: 1.5px;
+}
+
+.github-graph-cell[data-level="empty"] {
+  background: transparent;
+}
+
+.github-graph-cell[data-level="1"]::after { background: var(--color-black-4); }
+.github-graph-cell[data-level="2"]::after { background: var(--color-black-6); }
+.github-graph-cell[data-level="3"]::after { background: var(--color-black-9); }
+.github-graph-cell[data-level="4"]::after { background: var(--color-white-c); }
+
+.github-graph-cell[data-level="1"]::after,
+.github-graph-cell[data-level="2"]::after,
+.github-graph-cell[data-level="3"]::after,
+.github-graph-cell[data-level="4"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: clamp(0, (var(--progress, 0) - var(--col-threshold, 0)) * 20, 1);
+}

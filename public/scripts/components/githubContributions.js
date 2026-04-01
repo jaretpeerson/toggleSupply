@@ -1,9 +1,11 @@
-const API_URL = "https://github-contributions-api.jogruber.de/v4/jaretpeerson?y=last"
+const API_URL =
+  "https://github-contributions-api.jogruber.de/v4/jaretpeerson?y=last"
+// To switch users, replace "jaretpeerson" in the URL above with the desired GitHub username
 
 async function fetchContributions() {
   const res = await fetch(API_URL)
   const data = await res.json()
-  return data.contributions // [{date, count, level}, ...]
+  return data.contributions
 }
 
 function buildGrid(contributions) {
@@ -11,7 +13,7 @@ function buildGrid(contributions) {
   wrapper.innerHTML = ""
 
   const firstDate = new Date(contributions[0].date + "T00:00:00")
-  const startDay = firstDate.getDay() // 0 = Sunday
+  const startDay = firstDate.getDay()
 
   const weeks = []
   let week = new Array(startDay).fill(null)

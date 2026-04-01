@@ -1,5 +1,5 @@
 :root {
-  --cell-size: 14px;
+  --cell-size: 12px;
   --grid-gap: 6px;
 }
 
@@ -25,6 +25,8 @@
   display: flex;
   flex-direction: row;
   gap: var(--grid-gap);
+  padding: 20px;
+  border: 3px solid var(--color-black-1c);
 }
 
 .github-graph-columns {
@@ -45,10 +47,18 @@
   background: transparent;
 }
 
-.github-graph-cell[data-level="1"]::after { background: var(--color-black-4); }
-.github-graph-cell[data-level="2"]::after { background: var(--color-black-6); }
-.github-graph-cell[data-level="3"]::after { background: var(--color-black-9); }
-.github-graph-cell[data-level="4"]::after { background: var(--color-white-c); }
+.github-graph-cell[data-level="1"]::after {
+  background: var(--color-black-4);
+}
+.github-graph-cell[data-level="2"]::after {
+  background: var(--color-black-6);
+}
+.github-graph-cell[data-level="3"]::after {
+  background: var(--color-black-9);
+}
+.github-graph-cell[data-level="4"]::after {
+  background: var(--color-white-c);
+}
 
 .github-graph-cell[data-level="1"]::after,
 .github-graph-cell[data-level="2"]::after,

@@ -41,6 +41,20 @@
   width: var(--cell-size);
   height: var(--cell-size);
   border-radius: 1.5px;
+  transform: scale(0.3);
+}
+
+.github-graph-cell[data-level="1"] { --_scale-max: 0.5; }
+.github-graph-cell[data-level="2"] { --_scale-max: 0.65; }
+.github-graph-cell[data-level="3"] { --_scale-max: 0.8; }
+.github-graph-cell[data-level="4"] { --_scale-max: 1.0; }
+
+.github-graph-cell[data-level="1"],
+.github-graph-cell[data-level="2"],
+.github-graph-cell[data-level="3"],
+.github-graph-cell[data-level="4"] {
+  --_grow: clamp(0, (var(--progress, 0) - var(--col-threshold, 0)) * 20, 1);
+  transform: scale(calc(0.3 + var(--_grow) * (var(--_scale-max) - 0.3)));
 }
 
 .github-graph-cell[data-level="empty"] {

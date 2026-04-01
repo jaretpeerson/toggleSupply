@@ -1,5 +1,5 @@
 const API_URL =
-  "https://github-contributions-api.jogruber.de/v4/jaretpeerson?y=last"
+  "https://github-contributions-api.jogruber.de/v4/andrewgolovanov?y=last"
 // To switch users, replace "jaretpeerson" in the URL above with the desired GitHub username
 
 async function fetchContributions() {

@@ -51,7 +51,7 @@ body {
 .github-graph-wrapper {
   display: flex;
   flex-direction: column;
-  color: var(--color-black-4);
+  color: var(--color-black-9);
   font-size: 0.75rem;
   font-family: "JetBrains Mono", monospace;
   text-transform: uppercase;

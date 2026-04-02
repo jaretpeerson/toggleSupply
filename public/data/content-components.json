@@ -1,6 +1,17 @@
 [
     {
         "kind": "component",
+        "title": "GitHub Contributions",
+        "category": "Graphs",
+        "image": "",
+        "video": "https://vz-38d54223-6f4.b-cdn.net/5acaa6b1-1953-400b-8965-a2e786649a61/playlist.m3u8",
+        "href": "/components/githubContributions/",
+        "date": "2026-04-01",
+        "tags": ["github", "contributions", "graph", "grid", "activity", "heatmap", "data", "visualization", "calendar"],
+        "showOnMobile": true
+    },
+    {
+        "kind": "component",
         "title": "Reveal Menu Items on Hover",
         "category": "Navigation",
         "image": "/assets/thumbnails/thumbnail-2.webp",

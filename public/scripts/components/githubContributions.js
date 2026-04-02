@@ -112,8 +112,11 @@ function setupScroll() {
 
 async function init() {
   const username = new URL(API_URL).pathname.split("/").filter(Boolean).pop()
+  const githubUrl = `https://github.com/${username}`
   const usernameEl = document.getElementById("github-username")
   if (usernameEl) usernameEl.textContent = username
+  const profileLink = document.getElementById("github-profile-link")
+  if (profileLink) profileLink.href = githubUrl
 
   buildMonths()
 

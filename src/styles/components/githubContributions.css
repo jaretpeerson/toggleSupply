@@ -96,6 +96,10 @@
   align-items: center;
 }
 
+.github-graph-bottom-left a {
+  display: flex;
+}
+
 .github-graph-bottom-left svg {
   width: 14px;
   height: 14px;

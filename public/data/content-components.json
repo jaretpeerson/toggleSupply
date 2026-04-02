@@ -7,7 +7,7 @@
         "video": "https://vz-38d54223-6f4.b-cdn.net/5acaa6b1-1953-400b-8965-a2e786649a61/playlist.m3u8",
         "href": "/components/githubContributions/",
         "date": "2026-04-01",
-        "tags": ["github", "contributions", "graph", "grid", "activity", "heatmap", "data", "visualization", "calendar"],
+        "tags": ["github", "contributions", "graph", "grid", "activity", "heatmap", "data", "visualization", "calendar", "scroll", "scrolling"],
         "showOnMobile": true
     },
     {

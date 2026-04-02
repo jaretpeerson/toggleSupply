@@ -37,10 +37,42 @@
 
 .github-graph-months {
   width: 100%;
+  position: relative;
 }
 
-.github-graph-months span {
+.github-graph-months > span {
   flex: 1;
+  text-align: center;
+}
+
+.github-month-highlight-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-white-e, white);
+  clip-path: inset(
+    0 calc((1 - var(--progress, 0)) * 91.6667%) 0
+      calc(var(--progress, 0) * 91.6667%)
+  );
+  pointer-events: none;
+  text-align: center;
+}
+
+.github-month-highlight-text span {
+  flex: 1;
+}
+
+.github-month-highlight-box {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(var(--progress, 0) * 91.6667%);
+  width: calc(100% / 12);
+  height: 50%;
+  border: 1px solid var(--color-black-4);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .github-graph-grid {
@@ -51,7 +83,7 @@
 
 .github-graph-months,
 .github-graph-bottom-content {
-  height: 40px;
+  height: 42px;
   display: flex;
   align-items: center;
 }

@@ -14,12 +14,33 @@ function buildMonths() {
   const container = document.getElementById("github-graph-months")
   container.innerHTML = ""
 
+  const labels = []
   for (let i = 11; i >= 0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
-    const span = document.createElement("span")
-    span.textContent = monthNames[d.getMonth()]
-    container.appendChild(span)
+    labels.push(monthNames[d.getMonth()])
   }
+
+  // Dim base layer
+  labels.forEach(name => {
+    const span = document.createElement("span")
+    span.textContent = name
+    container.appendChild(span)
+  })
+
+  // White text layer — clipped to the sliding box via CSS
+  const whiteLayer = document.createElement("div")
+  whiteLayer.classList.add("github-month-highlight-text")
+  labels.forEach(name => {
+    const span = document.createElement("span")
+    span.textContent = name
+    whiteLayer.appendChild(span)
+  })
+  container.appendChild(whiteLayer)
+
+  // Sliding border box
+  const box = document.createElement("div")
+  box.classList.add("github-month-highlight-box")
+  container.appendChild(box)
 }
 
 function buildGrid(contributions) {
@@ -77,16 +98,12 @@ function setupScroll() {
   const track = document.querySelector(".github-graph-track")
   const wrapper = document.querySelector(".github-graph-wrapper")
 
-  function easeOut(t) {
-    return 1 - Math.pow(1 - t, 3)
-  }
-
   function onScroll() {
     const rect = track.getBoundingClientRect()
     const trackScrollable = track.offsetHeight - window.innerHeight
     const scrolled = -rect.top
     const raw = Math.max(0, Math.min(1, scrolled / trackScrollable))
-    wrapper.style.setProperty("--progress", easeOut(raw))
+    wrapper.style.setProperty("--progress", raw * raw * (3 - 2 * raw))
   }
 
   window.addEventListener("scroll", onScroll, { passive: true })

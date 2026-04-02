@@ -3,6 +3,11 @@
   --grid-gap: 6px;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 .github-graph-track {
   height: 250vw;
   width: 100%;

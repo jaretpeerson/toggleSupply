@@ -8,6 +8,20 @@ async function fetchContributions() {
   return data.contributions
 }
 
+function buildMonths() {
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+  const now = new Date()
+  const container = document.getElementById("github-graph-months")
+  container.innerHTML = ""
+
+  for (let i = 11; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+    const span = document.createElement("span")
+    span.textContent = monthNames[d.getMonth()]
+    container.appendChild(span)
+  }
+}
+
 function buildGrid(contributions) {
   const wrapper = document.querySelector(".github-graph-grid")
   wrapper.innerHTML = ""
@@ -80,9 +94,19 @@ function setupScroll() {
 }
 
 async function init() {
+  const username = new URL(API_URL).pathname.split("/").filter(Boolean).pop()
+  const usernameEl = document.getElementById("github-username")
+  if (usernameEl) usernameEl.textContent = username
+
+  buildMonths()
+
   const contributions = await fetchContributions()
   buildGrid(contributions)
   setupScroll()
+
+  const total = contributions.reduce((sum, day) => sum + day.count, 0)
+  const countEl = document.getElementById("github-contribution-count")
+  if (countEl) countEl.textContent = `${total.toLocaleString()} Contributions made in the last year`
 }
 
 init()

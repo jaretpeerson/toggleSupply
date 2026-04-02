@@ -1,5 +1,4 @@
-const API_URL =
-  "https://github-contributions-api.jogruber.de/v4/andrewgolovanov?y=last"
+const API_URL = "https://github-contributions-api.jogruber.de/v4/HamedMP?y=last"
 // To switch users, replace "andrewgolovanov" in the URL above with the desired GitHub username
 
 const MOBILE_BREAKPOINT = 650

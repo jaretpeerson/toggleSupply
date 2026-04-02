@@ -1,12 +1,26 @@
 const API_URL =
   "https://github-contributions-api.jogruber.de/v4/andrewgolovanov?y=last"
-// To switch users, replace "jaretpeerson" in the URL above with the desired GitHub username
+// To switch users, replace "andrewgolovanov" in the URL above with the desired GitHub username
 
 const MOBILE_BREAKPOINT = 650
 const TABLET_BREAKPOINT = 1000
 const MOBILE_MONTHS = 5
 const TABLET_MONTHS = 8
 const DESKTOP_MONTHS = 12
+const MONTH_NAMES = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC",
+]
 
 function getMonthCount() {
   if (window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches)
@@ -31,45 +45,26 @@ function filterContributions(contributions, monthCount) {
 }
 
 function buildMonths(monthCount) {
-  const monthNames = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
-  ]
   const now = new Date()
   const container = document.getElementById("github-graph-months")
   container.innerHTML = ""
 
-  const labels = []
-  for (let i = monthCount - 1; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
-    labels.push(monthNames[d.getMonth()])
-  }
-
-  // Dim base layer
-  labels.forEach((name) => {
-    const span = document.createElement("span")
-    span.textContent = name
-    container.appendChild(span)
-  })
-
-  // White text layer — clipped to the sliding box via CSS
   const whiteLayer = document.createElement("div")
   whiteLayer.classList.add("github-month-highlight-text")
-  labels.forEach((name) => {
-    const span = document.createElement("span")
-    span.textContent = name
-    whiteLayer.appendChild(span)
-  })
+
+  for (let i = monthCount - 1; i >= 0; i--) {
+    const name =
+      MONTH_NAMES[new Date(now.getFullYear(), now.getMonth() - i, 1).getMonth()]
+
+    const base = document.createElement("span")
+    base.textContent = name
+    container.appendChild(base)
+
+    const highlight = document.createElement("span")
+    highlight.textContent = name
+    whiteLayer.appendChild(highlight)
+  }
+
   container.appendChild(whiteLayer)
 
   // Sliding border box
@@ -173,12 +168,12 @@ async function init() {
     countEl.textContent = `${total.toLocaleString()} Contributions made in the last year`
 
   // Rebuild if viewport crosses either breakpoint (e.g. device rotation)
-  window
-    .matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`)
-    .addEventListener("change", () => rebuild(allContributions))
-  window
-    .matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`)
-    .addEventListener("change", () => rebuild(allContributions))
+  const onBreakpointChange = () => rebuild(allContributions)
+  for (const bp of [MOBILE_BREAKPOINT, TABLET_BREAKPOINT]) {
+    window
+      .matchMedia(`(max-width: ${bp}px)`)
+      .addEventListener("change", onBreakpointChange)
+  }
 }
 
 init()

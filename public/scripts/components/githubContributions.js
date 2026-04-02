@@ -2,26 +2,59 @@ const API_URL =
   "https://github-contributions-api.jogruber.de/v4/andrewgolovanov?y=last"
 // To switch users, replace "jaretpeerson" in the URL above with the desired GitHub username
 
+const MOBILE_BREAKPOINT = 768
+const TABLET_BREAKPOINT = 1024
+const MOBILE_MONTHS = 5
+const TABLET_MONTHS = 8
+const DESKTOP_MONTHS = 12
+
+function getMonthCount() {
+  if (window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches) return MOBILE_MONTHS
+  if (window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`).matches) return TABLET_MONTHS
+  return DESKTOP_MONTHS
+}
+
 async function fetchContributions() {
   const res = await fetch(API_URL)
   const data = await res.json()
   return data.contributions
 }
 
-function buildMonths() {
-  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+function filterContributions(contributions, monthCount) {
+  if (monthCount >= DESKTOP_MONTHS) return contributions
+  const now = new Date()
+  const cutoff = new Date(now.getFullYear(), now.getMonth() - monthCount + 1, 1)
+  const cutoffStr = cutoff.toISOString().slice(0, 10)
+  return contributions.filter((d) => d.date >= cutoffStr)
+}
+
+function buildMonths(monthCount) {
+  const monthNames = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ]
   const now = new Date()
   const container = document.getElementById("github-graph-months")
   container.innerHTML = ""
 
   const labels = []
-  for (let i = 11; i >= 0; i--) {
+  for (let i = monthCount - 1; i >= 0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
     labels.push(monthNames[d.getMonth()])
   }
 
   // Dim base layer
-  labels.forEach(name => {
+  labels.forEach((name) => {
     const span = document.createElement("span")
     span.textContent = name
     container.appendChild(span)
@@ -30,7 +63,7 @@ function buildMonths() {
   // White text layer — clipped to the sliding box via CSS
   const whiteLayer = document.createElement("div")
   whiteLayer.classList.add("github-month-highlight-text")
-  labels.forEach(name => {
+  labels.forEach((name) => {
     const span = document.createElement("span")
     span.textContent = name
     whiteLayer.appendChild(span)
@@ -110,6 +143,16 @@ function setupScroll() {
   onScroll()
 }
 
+function rebuild(allContributions) {
+  const monthCount = getMonthCount()
+  const wrapper = document.querySelector(".github-graph-wrapper")
+  wrapper.style.setProperty("--month-count", monthCount)
+  wrapper.style.removeProperty("--cell-size")
+
+  buildMonths(monthCount)
+  buildGrid(filterContributions(allContributions, monthCount))
+}
+
 async function init() {
   const username = new URL(API_URL).pathname.split("/").filter(Boolean).pop()
   const githubUrl = `https://github.com/${username}`
@@ -118,15 +161,20 @@ async function init() {
   const profileLink = document.getElementById("github-profile-link")
   if (profileLink) profileLink.href = githubUrl
 
-  buildMonths()
-
-  const contributions = await fetchContributions()
-  buildGrid(contributions)
+  const allContributions = await fetchContributions()
+  rebuild(allContributions)
   setupScroll()
 
-  const total = contributions.reduce((sum, day) => sum + day.count, 0)
+  const total = allContributions.reduce((sum, day) => sum + day.count, 0)
   const countEl = document.getElementById("github-contribution-count")
-  if (countEl) countEl.textContent = `${total.toLocaleString()} Contributions made in the last year`
+  if (countEl)
+    countEl.textContent = `${total.toLocaleString()} Contributions made in the last year`
+
+  // Rebuild if viewport crosses either breakpoint (e.g. device rotation)
+  window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`)
+    .addEventListener("change", () => rebuild(allContributions))
+  window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`)
+    .addEventListener("change", () => rebuild(allContributions))
 }
 
 init()

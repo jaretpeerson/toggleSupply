@@ -74,8 +74,16 @@
   align-items: center;
   color: var(--color-white-e, white);
   clip-path: inset(
-    0 calc((1 - var(--progress, 0)) * (var(--month-count, 12) - 1) / var(--month-count, 12) * 100%)
-    0 calc(var(--progress, 0) * (var(--month-count, 12) - 1) / var(--month-count, 12) * 100%)
+    0
+      calc(
+        (1 - var(--progress, 0)) * (var(--month-count, 12) - 1) /
+          var(--month-count, 12) * 100%
+      )
+      0
+      calc(
+        var(--progress, 0) * (var(--month-count, 12) - 1) /
+          var(--month-count, 12) * 100%
+      )
   );
   pointer-events: none;
   text-align: center;
@@ -89,14 +97,16 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: calc(var(--progress, 0) * (var(--month-count, 12) - 1) / var(--month-count, 12) * 100%);
+  left: calc(
+    var(--progress, 0) * (var(--month-count, 12) - 1) / var(--month-count, 12) *
+      100%
+  );
   width: calc(100% / var(--month-count, 12));
   height: 50%;
   border: 1px solid var(--color-black-4);
   border-radius: 4px;
   pointer-events: none;
 }
-
 
 .github-graph-grid {
   display: flex;
@@ -173,4 +183,10 @@
   inset: 0;
   border-radius: inherit;
   opacity: clamp(0, (var(--progress, 0) - var(--col-threshold, 0)) * 20, 1);
+}
+
+@media screen and (max-width: 775px) {
+  .github-graph-bottom-right {
+    display: none;
+  }
 }

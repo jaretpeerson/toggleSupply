@@ -2,15 +2,17 @@ const API_URL =
   "https://github-contributions-api.jogruber.de/v4/andrewgolovanov?y=last"
 // To switch users, replace "jaretpeerson" in the URL above with the desired GitHub username
 
-const MOBILE_BREAKPOINT = 768
-const TABLET_BREAKPOINT = 1024
+const MOBILE_BREAKPOINT = 650
+const TABLET_BREAKPOINT = 1000
 const MOBILE_MONTHS = 5
 const TABLET_MONTHS = 8
 const DESKTOP_MONTHS = 12
 
 function getMonthCount() {
-  if (window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches) return MOBILE_MONTHS
-  if (window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`).matches) return TABLET_MONTHS
+  if (window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches)
+    return MOBILE_MONTHS
+  if (window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`).matches)
+    return TABLET_MONTHS
   return DESKTOP_MONTHS
 }
 
@@ -171,9 +173,11 @@ async function init() {
     countEl.textContent = `${total.toLocaleString()} Contributions made in the last year`
 
   // Rebuild if viewport crosses either breakpoint (e.g. device rotation)
-  window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`)
+  window
+    .matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`)
     .addEventListener("change", () => rebuild(allContributions))
-  window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`)
+  window
+    .matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`)
     .addEventListener("change", () => rebuild(allContributions))
 }
 

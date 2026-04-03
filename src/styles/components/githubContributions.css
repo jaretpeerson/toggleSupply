@@ -185,8 +185,4 @@ body {
     flex-direction: column;
     align-items: center;
   }
-
-  .github-graph-bottom-right {
-    justify-content: flex-start;
-  }
 }
